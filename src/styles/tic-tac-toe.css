@@ -6,24 +6,28 @@
 }
 
 .tic-box {
-    background-color: rgb(221, 221, 221);
+    background-color: rgb(241, 241, 241);
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .tic-box:hover {
-    background-color: rgb(207, 207, 207);
-}
-.tic-box:active {
-    background-color: rgb(198, 198, 198);
+    background-color: rgb(228, 228, 228);
 }
 
-.icons,.scores {
+.tic-box:active {
+    background-color: rgb(217, 217, 217);
+}
+
+.icons,
+.scores {
     display: flex;
     justify-content: space-evenly;
     margin-top: 1rem;
 }
-.scores > h1 {
+
+.scores>h1 {
     margin: 0;
     font-size: 5rem;
 }
@@ -32,71 +36,108 @@
     display: flex;
     justify-content: center;
 }
+
 .reset-btn {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    font-size: 2rem;
-    border-radius: 10px;
-    transition: color 0.3s, background-color 0.3s;
-}
-.reset-btn:hover {
+    font-size: 1.5rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    background-color: rgba(0, 0, 0, 0.2);
     color: white;
-    background-color: rgb(33, 33, 33);
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.reset-btn:hover {
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .win-tile {
     background-color: #b6ccbc;
 }
+
 .win-tile:hover {
     background-color: #aac7b2;
 }
+
 .win-tile:active {
     background-color: #9fd4ad;
 }
 
-@media (max-width: 370px){
+@media (max-width: 370px) {
     .tic-box {
         width: 4rem;
         height: 4rem;
     }
+
     .scoreboard {
         width: 12rem;
     }
+
     img {
         width: 60px;
         height: 60px;
     }
 }
-@media (max-width: 600px) and (min-width: 371px){
+
+@media (max-width: 600px) and (min-width: 371px) {
     .tic-box {
         width: 6rem;
         height: 6rem;
     }
+
     .scoreboard {
         width: 18rem;
     }
+
     img {
         width: 80px;
         height: 80px;
     }
 }
-@media (min-width: 601px){
+
+@media (min-width: 601px) {
     .tic-box {
         width: 8rem;
         height: 8rem;
     }
+
     .scoreboard {
         width: 24rem;
     }
+
     h1 {
         font-size: 3rem;
     }
+
     img {
         width: 110px;
         height: 110px;
     }
-    .icons > img {
+
+    .icons>img {
         width: 80px;
         height: 80px;
     }
+}
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+    background-color: rgba(0, 0, 0, 0.4);
 }
