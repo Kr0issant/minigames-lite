@@ -1,0 +1,379 @@
+:root {
+    --bg-color: #faf8ef;
+    --grid-color: #bbada0;
+    --cell-empty-color: #cdc1b4;
+    --text-color: #776e65;
+    --text-light: #f9f6f2;
+    --font-family: 'Outfit', sans-serif;
+
+    /* Tile Colors */
+    --tile-2-bg: #eee4da;
+    --tile-2-color: #776e65;
+
+    --tile-4-bg: #ede0c8;
+    --tile-4-color: #776e65;
+
+    --tile-8-bg: #f2b179;
+    --tile-8-color: #f9f6f2;
+
+    --tile-16-bg: #f59563;
+    --tile-16-color: #f9f6f2;
+
+    --tile-32-bg: #f67c5f;
+    --tile-32-color: #f9f6f2;
+
+    --tile-64-bg: #f65e3b;
+    --tile-64-color: #f9f6f2;
+
+    --tile-128-bg: #edcf72;
+    --tile-128-color: #f9f6f2;
+
+    --tile-256-bg: #edcc61;
+    --tile-256-color: #f9f6f2;
+
+    --tile-512-bg: #edc850;
+    --tile-512-color: #f9f6f2;
+
+    --tile-1024-bg: #edc53f;
+    --tile-1024-color: #f9f6f2;
+
+    --tile-2048-bg: #edc22e;
+    --tile-2048-color: #f9f6f2;
+
+    --tile-super-bg: #3c3a32;
+    --tile-super-color: #f9f6f2;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* Allow scrolling on small screens */
+    min-height: 100vh;
+    padding-top: 50px;
+}
+
+.container {
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 80px;
+    font-weight: 700;
+    color: #776e65;
+    letter-spacing: -2px;
+}
+
+.scores-container {
+    display: flex;
+    gap: 10px;
+}
+
+.score-box {
+    background: #bbada0;
+    padding: 5px 20px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+}
+
+.score-label {
+    font-size: 13px;
+    color: #eee4da;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+#score,
+#best-score {
+    font-size: 25px;
+    font-weight: 700;
+    color: white;
+}
+
+.above-game {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.game-intro {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.restart-btn,
+#retry-btn {
+    background-color: #8f7a66;
+    color: #f9f6f2;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-family: var(--font-family);
+}
+
+.restart-btn:hover,
+#retry-btn:hover {
+    background-color: #7f6a56;
+}
+
+.game-container {
+    position: relative;
+    padding: 15px;
+    cursor: default;
+    background: #bbada0;
+    border-radius: 6px;
+    width: 500px;
+    height: 500px;
+    touch-action: none;
+    /* Prevent scrolling while swiping on game */
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 15px;
+    width: 100%;
+    height: 100%;
+}
+
+.grid-cell {
+    background: rgba(238, 228, 218, 0.35);
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
+}
+
+.tile-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 15px;
+    /* Match game-container padding */
+    pointer-events: none;
+    /* Let clicks pass through */
+}
+
+/* Dynamic Tile Styles */
+.tile {
+    position: absolute;
+    width: 106.25px;
+    height: 106.25px;
+    border-radius: 3px;
+    transition: transform 100ms ease-in-out;
+    z-index: 10;
+}
+
+.tile .tile-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 106.25px;
+    font-weight: 700;
+    font-size: 55px;
+    background: #eee4da;
+    color: #776e65;
+    transition: background-color 100ms;
+}
+
+/* Tile Positioning Logic will be handled via transforms in JS */
+
+.tile.tile-2 .tile-inner {
+    background: var(--tile-2-bg);
+    color: var(--tile-2-color);
+}
+
+.tile.tile-4 .tile-inner {
+    background: var(--tile-4-bg);
+    color: var(--tile-4-color);
+}
+
+.tile.tile-8 .tile-inner {
+    background: var(--tile-8-bg);
+    color: var(--tile-8-color);
+}
+
+.tile.tile-16 .tile-inner {
+    background: var(--tile-16-bg);
+    color: var(--tile-16-color);
+}
+
+.tile.tile-32 .tile-inner {
+    background: var(--tile-32-bg);
+    color: var(--tile-32-color);
+}
+
+.tile.tile-64 .tile-inner {
+    background: var(--tile-64-bg);
+    color: var(--tile-64-color);
+}
+
+.tile.tile-128 .tile-inner {
+    background: var(--tile-128-bg);
+    color: var(--tile-128-color);
+    font-size: 45px;
+}
+
+.tile.tile-256 .tile-inner {
+    background: var(--tile-256-bg);
+    color: var(--tile-256-color);
+    font-size: 45px;
+}
+
+.tile.tile-512 .tile-inner {
+    background: var(--tile-512-bg);
+    color: var(--tile-512-color);
+    font-size: 45px;
+}
+
+.tile.tile-1024 .tile-inner {
+    background: var(--tile-1024-bg);
+    color: var(--tile-1024-color);
+    font-size: 35px;
+}
+
+.tile.tile-2048 .tile-inner {
+    background: var(--tile-2048-bg);
+    color: var(--tile-2048-color);
+    font-size: 35px;
+}
+
+.tile.tile-super .tile-inner {
+    background: var(--tile-super-bg);
+    color: var(--tile-super-color);
+}
+
+
+/* Overlay for Game Over / Win */
+.game-message {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(238, 228, 218, 0.73);
+    z-index: 100;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    animation: fade-in 800ms ease 1200ms;
+    animation-fill-mode: both;
+}
+
+.game-message p {
+    font-size: 60px;
+    font-weight: 700;
+    height: 60px;
+    line-height: 60px;
+    margin-bottom: 20px;
+}
+
+.game-message.game-over {
+    display: flex;
+}
+
+.game-message.game-won {
+    display: flex;
+    background: rgba(237, 194, 46, 0.5);
+    color: #f9f6f2;
+}
+
+.instructions {
+    margin-top: 30px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #776e65;
+}
+
+/* Animations */
+@keyframes pop {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.tile.new-tile .tile-inner {
+    animation: pop 200ms ease 100ms;
+    animation-fill-mode: backwards;
+}
+
+.tile.merged-tile .tile-inner {
+    animation: pop 200ms ease;
+    z-index: 20;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 520px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 50px;
+    }
+
+    .game-container {
+        width: 100%;
+        /* Keep aspect ratio square based on width (approx) or fixed smaller size */
+        height: auto;
+        aspect-ratio: 1 / 1;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .tile-container {
+        margin: 10px;
+    }
+
+    .grid-container {
+        gap: 10px;
+    }
+
+    .score-box {
+        min-width: 60px;
+        padding: 5px 10px;
+    }
+
+    /* Need to recalculate tile sizes in JS or use relative units like % */
+    /* For simplicity in CSS, we can use percentages for tile positions based on grid */
+}
