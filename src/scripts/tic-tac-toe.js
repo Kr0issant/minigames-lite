@@ -24,20 +24,20 @@ function ticClick(e) {
 
     if (chance === "cross") {
         e.target.innerHTML = '<img src="../assets/cross.png" draggable="false">';
-
+        e.target.classList.add("pop-in");
         chance = "circle";
     } else {
         e.target.innerHTML = '<img src="../assets/circle.png" draggable="false">';
-
+        e.target.classList.add("pop-in");
         chance = "cross";
     }
-    
+
     move++;
     let victor = checkWin();
 
     if (victor != "") {
         gameEnded = true;
-        
+
         if (victor === "cross") {
             crossScore.innerHTML = parseInt(crossScore.innerHTML) + 1;
         } else if (victor === "circle") {
@@ -53,7 +53,7 @@ function checkWin() {
 
     let victor = "";
     let lastChance = (chance == "cross" ? "circle" : "cross");
-    
+
     let gameMask = parseInt(boxes.join("").replaceAll(lastChance, "1").replaceAll(chance, "0"), 2);
 
     winMasks.forEach(win => {
@@ -79,6 +79,7 @@ function reset() {
         let t = document.getElementById(i);
         t.innerHTML = "";
         t.classList.remove("win-tile");
+        t.classList.remove("pop-in");
 
         boxes[i] = "0";
     }
