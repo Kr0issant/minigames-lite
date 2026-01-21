@@ -1,0 +1,99 @@
+:root {
+    --bg-gradient-start: #00c6ff;
+    --bg-gradient-end: #0072ff;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-hover-transform: translateY(-5px);
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --card-hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    --text-color: #333;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    min-height: 100vh;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    width: 100%;
+    padding: 2rem 0;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    margin: 0;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    padding: 0 1rem 2rem;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.game-card {
+    background: var(--card-bg);
+    border-radius: 1rem;
+    overflow: hidden;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-shadow: var(--card-shadow);
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+}
+
+.game-card:hover {
+    transform: var(--card-hover-transform);
+    box-shadow: var(--card-hover-shadow);
+    z-index: 10;
+}
+
+.game-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.game-title {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .games-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+}
