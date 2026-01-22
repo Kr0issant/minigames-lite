@@ -136,26 +136,25 @@ function draw(time = performance.now()) {
     // Clear canvas to let CSS background show through
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw subtle grid
-    ctx.strokeStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.lineWidth = 1;
-    for (let i = 0; i <= tileCount; i++) {
-        ctx.beginPath();
-        ctx.moveTo(i * gridSize, 0);
-        ctx.lineTo(i * gridSize, canvas.height);
-        ctx.stroke();
+    const gap = 2;
+    const size = gridSize - (gap * 2);
+    const radius = 4;
 
-        ctx.beginPath();
-        ctx.moveTo(0, i * gridSize);
-        ctx.lineTo(canvas.width, i * gridSize);
-        ctx.stroke();
+    // Draw grid cells
+    ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+    for (let x = 0; x < tileCount; x++) {
+        for (let y = 0; y < tileCount; y++) {
+            ctx.beginPath();
+            ctx.roundRect((x * gridSize) + gap, (y * gridSize) + gap, size, size, radius);
+            ctx.fill();
+        }
     }
 
     // Draw food with pulsing animation
     const pulseScale = 1 + Math.sin(time / 200) * 0.1; // Oscillate between 0.9 and 1.1
     const foodX = food.x * gridSize + gridSize / 2;
     const foodY = food.y * gridSize + gridSize / 2;
-    const foodRadius = (gridSize / 2 - 2) * pulseScale;
+    const foodRadius = (size / 2) * pulseScale;
 
     ctx.fillStyle = '#ff6b6b'; // Playful Red
     ctx.beginPath();
@@ -173,12 +172,10 @@ function draw(time = performance.now()) {
     for (let i = 0; i < snake.length; i++) {
         const x = snake[i].x * gridSize;
         const y = snake[i].y * gridSize;
-        const size = gridSize - 0.5; // Minimal gap
-        const radius = 5; // Rounded corners
 
         // Draw rounded rectangle for segment
         ctx.beginPath();
-        ctx.roundRect(x + 0.25, y + 0.25, size, size, radius);
+        ctx.roundRect(x + gap, y + gap, size, size, radius);
         ctx.fill();
 
         // Draw eyes on head
