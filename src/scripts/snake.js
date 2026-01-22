@@ -12,6 +12,7 @@ let highScore = localStorage.getItem('snakeHighScore') || 0;
 let velocityX = 0;
 let velocityY = 0;
 let snake = [];
+let prevSnake = [];
 let food = { x: 10, y: 10 };
 let gameInterval;
 let animationFrameId;
@@ -20,6 +21,8 @@ let inputQueue = [];
 
 let isFirstStart = true;
 let hasPendingReset = false;
+let lastUpdateTime = 0;
+const UPDATE_INTERVAL = 100;
 
 // Initialize high score display
 if (highScoreElement) {
@@ -40,6 +43,7 @@ function initGame(shouldPlaceFood = true) {
         { x: startX - 1, y: startY },
         { x: startX - 2, y: startY }
     ];
+    prevSnake = snake.map(s => ({ ...s }));
 
     if (shouldPlaceFood) {
         placeFood(); // Place food randomly within bounds
@@ -48,6 +52,7 @@ function initGame(shouldPlaceFood = true) {
     score = 0;
     velocityX = 1;
     velocityY = 0;
+    lastUpdateTime = performance.now();
     inputQueue = [];
     scoreElement.textContent = score;
 
@@ -78,7 +83,8 @@ function startGame() {
         isGameRunning = true;
         startBtn.textContent = "RESTART";
         if (gameInterval) clearInterval(gameInterval);
-        gameInterval = setInterval(update, 100); // Game logic at 10fps
+        if (gameInterval) clearInterval(gameInterval);
+        gameInterval = setInterval(update, UPDATE_INTERVAL); // Game logic at 10fps
         drawLoop(); // Animation at 60fps
     }
 }
@@ -96,6 +102,8 @@ function drawLoop(time) {
 }
 
 function update() {
+    prevSnake = snake.map(s => ({ ...s }));
+
     // Process input queue
     if (inputQueue.length > 0) {
         const nextMove = inputQueue.shift();
@@ -130,6 +138,7 @@ function update() {
     } else {
         snake.pop();
     }
+    lastUpdateTime = performance.now();
 }
 
 function draw(time = performance.now()) {
@@ -168,66 +177,105 @@ function draw(time = performance.now()) {
     ctx.fill();
 
     // Draw snake
-    ctx.fillStyle = '#4ec050'; // Playful Green
-    for (let i = 0; i < snake.length; i++) {
-        const x = snake[i].x * gridSize;
-        const y = snake[i].y * gridSize;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = size;
+    ctx.strokeStyle = '#4ec050'; // Playful Green
 
-        // Draw rounded rectangle for segment
+    // Calculate interpolation factor
+    const timeSinceLastUpdate = time - lastUpdateTime;
+    let alpha = timeSinceLastUpdate / UPDATE_INTERVAL;
+    if (alpha < 0) alpha = 0;
+    if (alpha > 1) alpha = 1;
+
+    // Helper for linear interpolation
+    const lerp = (start, end, t) => start + (end - start) * t;
+
+    if (snake.length > 0 && prevSnake.length > 0) {
         ctx.beginPath();
-        ctx.roundRect(x + gap, y + gap, size, size, radius);
+
+        // 1. Interpolated Head Position
+        const headStart = prevSnake[0];
+        const headEnd = snake[0];
+        const headX = lerp(headStart.x, headEnd.x, alpha);
+        const headY = lerp(headStart.y, headEnd.y, alpha);
+
+        ctx.moveTo(headX * gridSize + gridSize / 2, headY * gridSize + gridSize / 2);
+
+        // 2. Body Segments (Static corners)
+        // Iterate through prevSnake to define the path shape
+        // We stop before the last segment because the tail is moving
+        for (let i = 0; i < prevSnake.length - 1; i++) {
+            const p = prevSnake[i];
+            ctx.lineTo(p.x * gridSize + gridSize / 2, p.y * gridSize + gridSize / 2);
+        }
+
+        // 3. Interpolated Tail Position
+        const tailStart = prevSnake[prevSnake.length - 1];
+        let tailEnd;
+
+        // Check if growing (snake is longer than prevSnake)
+        if (snake.length > prevSnake.length) {
+            tailEnd = tailStart; // Tail stays put
+        } else {
+            // Tail moves towards the segment before it
+            tailEnd = prevSnake[prevSnake.length - 2] || tailStart;
+        }
+
+        const tailX = lerp(tailStart.x, tailEnd.x, alpha);
+        const tailY = lerp(tailStart.y, tailEnd.y, alpha);
+
+        ctx.lineTo(tailX * gridSize + gridSize / 2, tailY * gridSize + gridSize / 2);
+
+        ctx.stroke();
+
+        // 4. Draw Eyes at Interpolated Head
+        ctx.fillStyle = 'white';
+        const eyeSize = 10;
+        const eyeOffset = 6;
+
+        // Determine current direction for eyes
+        let vx = headEnd.x - headStart.x;
+        let vy = headEnd.y - headStart.y;
+        if (vx === 0 && vy === 0) {
+            vx = velocityX;
+            vy = velocityY;
+        }
+
+        // Base eye positions relative to head center (0,0)
+        // We'll rotate/position them based on direction
+        const cx = headX * gridSize + gridSize / 2;
+        const cy = headY * gridSize + gridSize / 2;
+
+        let eye1x, eye1y, eye2x, eye2y;
+
+        // Offset from center to eyes
+        const perpX = -vy; // Perpendicular vector
+        const perpY = vx;
+
+        // Push eyes forward and apart
+        const forwardOffset = size / 4;
+        const sideOffset = size / 4;
+
+        eye1x = cx + vx * forwardOffset + perpX * sideOffset - eyeSize / 2;
+        eye1y = cy + vy * forwardOffset + perpY * sideOffset - eyeSize / 2;
+        eye2x = cx + vx * forwardOffset - perpX * sideOffset - eyeSize / 2;
+        eye2y = cy + vy * forwardOffset - perpY * sideOffset - eyeSize / 2;
+
+        ctx.beginPath();
+        ctx.arc(eye1x + eyeSize / 2, eye1y + eyeSize / 2, eyeSize / 2, 0, Math.PI * 2);
+        ctx.arc(eye2x + eyeSize / 2, eye2y + eyeSize / 2, eyeSize / 2, 0, Math.PI * 2);
         ctx.fill();
 
-        // Draw eyes on head
-        if (i === 0) {
-            ctx.fillStyle = 'white';
-            const eyeSize = 10;
-            const eyeOffset = 6;
-            let eye1x, eye1y, eye2x, eye2y;
+        // Pupils
+        ctx.fillStyle = 'black';
+        const pupilSize = 4;
+        const pupilOffset = 2;
 
-            // Default to right if not moving
-            let vx = velocityX;
-            let vy = velocityY;
-            if (vx === 0 && vy === 0) vx = 1;
-
-            if (vx === 1) { // Right
-                eye1x = x + gridSize - eyeOffset - eyeSize;
-                eye1y = y + eyeOffset;
-                eye2x = x + gridSize - eyeOffset - eyeSize;
-                eye2y = y + gridSize - eyeOffset - eyeSize;
-            } else if (vx === -1) { // Left
-                eye1x = x + eyeOffset;
-                eye1y = y + eyeOffset;
-                eye2x = x + eyeOffset;
-                eye2y = y + gridSize - eyeOffset - eyeSize;
-            } else if (vy === 1) { // Down
-                eye1x = x + eyeOffset;
-                eye1y = y + gridSize - eyeOffset - eyeSize;
-                eye2x = x + gridSize - eyeOffset - eyeSize;
-                eye2y = y + gridSize - eyeOffset - eyeSize;
-            } else if (vy === -1) { // Up
-                eye1x = x + eyeOffset;
-                eye1y = y + eyeOffset;
-                eye2x = x + gridSize - eyeOffset - eyeSize;
-                eye2y = y + eyeOffset;
-            }
-
-            ctx.beginPath();
-            ctx.arc(eye1x + eyeSize / 2, eye1y + eyeSize / 2, eyeSize / 2, 0, Math.PI * 2);
-            ctx.arc(eye2x + eyeSize / 2, eye2y + eyeSize / 2, eyeSize / 2, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Pupils
-            ctx.fillStyle = 'black';
-            const pupilSize = 4;
-            ctx.beginPath();
-            ctx.arc(eye1x + eyeSize / 2 + vx, eye1y + eyeSize / 2 + vy, pupilSize / 2, 0, Math.PI * 2);
-            ctx.arc(eye2x + eyeSize / 2 + vx, eye2y + eyeSize / 2 + vy, pupilSize / 2, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Reset fill style for next segment
-            ctx.fillStyle = '#4ec050';
-        }
+        ctx.beginPath();
+        ctx.arc(eye1x + eyeSize / 2 + vx * pupilOffset, eye1y + eyeSize / 2 + vy * pupilOffset, pupilSize / 2, 0, Math.PI * 2);
+        ctx.arc(eye2x + eyeSize / 2 + vx * pupilOffset, eye2y + eyeSize / 2 + vy * pupilOffset, pupilSize / 2, 0, Math.PI * 2);
+        ctx.fill();
     }
 }
 
