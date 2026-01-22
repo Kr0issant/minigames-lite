@@ -159,21 +159,28 @@ function draw(time = performance.now()) {
         }
     }
 
-    // Draw food with pulsing animation
-    const pulseScale = 1 + Math.sin(time / 200) * 0.1; // Oscillate between 0.9 and 1.1
+    // Draw food (Apple)
+    const pulseScale = 1 + Math.sin(time / 200) * 0.1;
     const foodX = food.x * gridSize + gridSize / 2;
     const foodY = food.y * gridSize + gridSize / 2;
-    const foodRadius = (size / 2) * pulseScale;
+    const foodRadius = (gridSize / 2) * 0.8 * pulseScale;
 
-    ctx.fillStyle = '#ff6b6b'; // Playful Red
+    // Apple Body
+    ctx.fillStyle = '#e7471d'; // Apple Red
     ctx.beginPath();
-    ctx.arc(foodX, foodY, foodRadius, 0, Math.PI * 2);
+    ctx.arc(foodX, foodY + 2, foodRadius, 0, Math.PI * 2); // Slightly lower
     ctx.fill();
 
-    // Add shine to food
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+    // Apple Shine
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
     ctx.beginPath();
-    ctx.arc(foodX - foodRadius * 0.3, foodY - foodRadius * 0.3, foodRadius * 0.3, 0, Math.PI * 2);
+    ctx.arc(foodX - foodRadius * 0.3, foodY - foodRadius * 0.2, foodRadius * 0.25, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Apple Leaf
+    ctx.fillStyle = '#578a34'; // Leaf Green
+    ctx.beginPath();
+    ctx.ellipse(foodX, foodY - foodRadius, foodRadius * 0.4, foodRadius * 0.2, Math.PI / 4, 0, Math.PI * 2);
     ctx.fill();
 
     // Draw snake
