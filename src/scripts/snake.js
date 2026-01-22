@@ -19,11 +19,18 @@ let isGameRunning = false;
 let inputQueue = [];
 
 let isFirstStart = true;
+let hasPendingReset = false;
 
 // Initialize high score display
 if (highScoreElement) {
     highScoreElement.textContent = highScore;
 }
+
+const messageContainer = document.getElementById('game-message');
+const messageText = document.getElementById('game-message-text');
+const retryBtn = document.getElementById('retry-btn');
+
+retryBtn.addEventListener('click', startGame);
 
 function initGame(shouldPlaceFood = true) {
     const startX = Math.floor(tileCount / 2);
@@ -44,6 +51,10 @@ function initGame(shouldPlaceFood = true) {
     inputQueue = [];
     scoreElement.textContent = score;
 
+    // Hide message
+    messageContainer.classList.remove('game-over');
+    messageContainer.style.display = 'none';
+
     // Draw initial state
     draw();
 }
@@ -54,14 +65,18 @@ function startGame() {
         stopGame();
         startBtn.textContent = "START";
         initGame();
+        hasPendingReset = true;
     } else {
         // Start logic
-        // Only place new food if it's NOT the first start
-        initGame(!isFirstStart);
+        // Only re-init if we didn't just reset
+        if (!hasPendingReset) {
+            initGame(!isFirstStart);
+        }
+        hasPendingReset = false;
         isFirstStart = false;
 
         isGameRunning = true;
-        startBtn.textContent = "RESET";
+        startBtn.textContent = "RESTART";
         if (gameInterval) clearInterval(gameInterval);
         gameInterval = setInterval(update, 100); // Game logic at 10fps
         drawLoop(); // Animation at 60fps
@@ -246,17 +261,10 @@ function gameOver() {
         }
     }
 
-    // Draw Game Over overlay
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = 'white';
-    ctx.font = 'bold 40px "Fredoka One", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 20);
-
-    ctx.font = '20px "Inter", sans-serif';
-    ctx.fillText(`Score: ${score}`, canvas.width / 2, canvas.height / 2 + 20);
+    // Show Game Over overlay
+    messageText.textContent = "Game Over!";
+    messageContainer.classList.add('game-over');
+    messageContainer.style.display = 'flex';
 
     startBtn.textContent = "START";
 }

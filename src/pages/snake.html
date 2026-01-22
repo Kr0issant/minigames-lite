@@ -19,12 +19,26 @@
     <h1>SNAKE</h1>
 
     <div class="game-content">
-        <canvas id="gameCanvas" width="600" height="600"></canvas>
+        <div class="game-container" style="position: relative;">
+            <canvas id="gameCanvas" width="600" height="600"></canvas>
+            <div id="game-message" class="game-message">
+                <p id="game-message-text"></p>
+                <div class="lower">
+                    <button id="retry-btn" class="retry-btn">Try again</button>
+                </div>
+            </div>
+        </div>
 
         <div class="scoreboard">
-            <div class="score-display">
-                <h2>Score: <span id="score">0</span></h2>
-                <h3>High Score: <span id="highScore">0</span></h3>
+            <div class="scores-container">
+                <div class="score-box">
+                    <div class="score-label">SCORE</div>
+                    <div id="score">0</div>
+                </div>
+                <div class="score-box">
+                    <div class="score-label">BEST</div>
+                    <div id="highScore">0</div>
+                </div>
             </div>
             <div class="reset-div">
                 <button id="startBtn" class="reset-btn">START</button>
