@@ -4,44 +4,55 @@
     --cell-empty-color: #cdc1b4;
     --text-color: #776e65;
     --text-light: #f9f6f2;
-    --font-family: 'Outfit', sans-serif;
+    --font-family: 'Fredoka One', sans-serif;
+    --heading-font: 'Fredoka One', cursive, sans-serif;
 
-    /* Tile Colors */
-    --tile-2-bg: #eee4da;
+    /* Tile Colors - Snowy Blue Theme */
+    --tile-2-bg: #ffffff;
     --tile-2-color: #776e65;
 
-    --tile-4-bg: #ede0c8;
+    --tile-4-bg: #e1f5fe;
+    /* Lightest Blue */
     --tile-4-color: #776e65;
 
-    --tile-8-bg: #f2b179;
-    --tile-8-color: #f9f6f2;
+    --tile-8-bg: #b3e5fc;
+    /* Light Blue */
+    --tile-8-color: #776e65;
 
-    --tile-16-bg: #f59563;
-    --tile-16-color: #f9f6f2;
+    --tile-16-bg: #81d4fa;
+    /* Sky Blue */
+    --tile-16-color: #ffffff;
 
-    --tile-32-bg: #f67c5f;
-    --tile-32-color: #f9f6f2;
+    --tile-32-bg: #4fc3f7;
+    /* Light Blue */
+    --tile-32-color: #ffffff;
 
-    --tile-64-bg: #f65e3b;
-    --tile-64-color: #f9f6f2;
+    --tile-64-bg: #29b6f6;
+    /* Blue */
+    --tile-64-color: #ffffff;
 
-    --tile-128-bg: #edcf72;
-    --tile-128-color: #f9f6f2;
+    --tile-128-bg: #03a9f4;
+    /* Blue */
+    --tile-128-color: #ffffff;
 
-    --tile-256-bg: #edcc61;
-    --tile-256-color: #f9f6f2;
+    --tile-256-bg: #039be5;
+    /* Darker Blue */
+    --tile-256-color: #ffffff;
 
-    --tile-512-bg: #edc850;
-    --tile-512-color: #f9f6f2;
+    --tile-512-bg: #0288d1;
+    /* Dark Blue */
+    --tile-512-color: #ffffff;
 
-    --tile-1024-bg: #edc53f;
-    --tile-1024-color: #f9f6f2;
+    --tile-1024-bg: #0277bd;
+    /* Darker Blue */
+    --tile-1024-color: #ffffff;
 
-    --tile-2048-bg: #edc22e;
-    --tile-2048-color: #f9f6f2;
+    --tile-2048-bg: #01579b;
+    /* Deepest Blue */
+    --tile-2048-color: #ffffff;
 
     --tile-super-bg: #3c3a32;
-    --tile-super-color: #f9f6f2;
+    --tile-super-color: #ffffff;
 }
 
 * {
@@ -52,106 +63,125 @@
 
 body {
     font-family: var(--font-family);
-    background-color: var(--bg-color);
+    /* Background handled by main.css */
     color: var(--text-color);
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    /* Allow scrolling on small screens */
+    flex-direction: column;
+    align-items: center;
     min-height: 100vh;
-    padding-top: 50px;
-}
-
-.container {
-    width: 500px;
-    margin: 0 auto;
     padding: 20px;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+h1 {
+    font-family: var(--heading-font);
+    font-size: 3rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
+    text-align: center;
 }
 
-.title {
-    font-size: 80px;
-    font-weight: 700;
-    color: #776e65;
-    letter-spacing: -2px;
+.game-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.scoreboard {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .scores-container {
     display: flex;
-    gap: 10px;
+    justify-content: center;
+    gap: 20px;
 }
 
 .score-box {
-    background: #bbada0;
-    padding: 5px 20px;
-    border-radius: 6px;
+    background: rgba(187, 160, 164, 0.8);
+    padding: 10px 25px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 80px;
+    min-width: 100px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .score-label {
-    font-size: 13px;
+    font-size: 14px;
     color: #eee4da;
     text-transform: uppercase;
     font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
 }
 
 #score,
 #best-score {
-    font-size: 25px;
+    font-size: 30px;
     font-weight: 700;
     color: white;
+    font-family: var(--heading-font);
 }
 
-.above-game {
+.reset-div {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    justify-content: center;
 }
 
-.game-intro {
-    font-size: 18px;
-    line-height: 1.5;
-}
-
-.restart-btn,
-#retry-btn {
-    background-color: #8f7a66;
-    color: #f9f6f2;
-    border: none;
-    border-radius: 6px;
-    padding: 10px 20px;
-    font-size: 18px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.3s;
+.reset-btn {
     font-family: var(--font-family);
+    font-size: 1.2rem;
+    border-radius: 5px;
+    transition: all 0.2s;
+    background-color: #ff6b6b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #d35454;
+    transform: translateY(0);
 }
 
-.restart-btn:hover,
-#retry-btn:hover {
-    background-color: #7f6a56;
+.reset-btn:hover {
+    background-color: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #d35454;
+}
+
+.reset-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #d35454;
 }
 
 .game-container {
     position: relative;
     padding: 15px;
     cursor: default;
-    background: #bbada0;
-    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
     width: 500px;
     height: 500px;
     touch-action: none;
-    /* Prevent scrolling while swiping on game */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 4px solid rgba(255, 255, 255, 0.5);
 }
 
 .grid-container {
@@ -161,11 +191,14 @@ body {
     gap: 15px;
     width: 100%;
     height: 100%;
+    background: #bbada0;
+    border-radius: 15px;
+    padding: 15px;
 }
 
 .grid-cell {
     background: rgba(238, 228, 218, 0.35);
-    border-radius: 3px;
+    border-radius: 6px;
     width: 100%;
     height: 100%;
 }
@@ -198,11 +231,12 @@ body {
     border-radius: 3px;
     text-align: center;
     line-height: 106.25px;
-    font-weight: 700;
-    font-size: 55px;
+    font-weight: 200;
+    font-size: 45px;
     background: #eee4da;
     color: #776e65;
     transition: background-color 100ms;
+    font-family: var(--heading-font);
 }
 
 /* Tile Positioning Logic will be handled via transforms in JS */
@@ -274,6 +308,7 @@ body {
 
 
 /* Overlay for Game Over / Win */
+/* Overlay for Game Over / Win */
 .game-message {
     display: none;
     position: absolute;
@@ -281,7 +316,7 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(238, 228, 218, 0.73);
+    background: rgba(218, 232, 238, 0.73);
     z-index: 100;
     flex-direction: column;
     align-items: center;
@@ -289,6 +324,7 @@ body {
     text-align: center;
     animation: fade-in 800ms ease 1200ms;
     animation-fill-mode: both;
+    border-radius: 20px;
 }
 
 .game-message p {
@@ -297,6 +333,7 @@ body {
     height: 60px;
     line-height: 60px;
     margin-bottom: 20px;
+    font-family: var(--heading-font);
 }
 
 .game-message.game-over {
@@ -309,11 +346,59 @@ body {
     color: #f9f6f2;
 }
 
+#retry-btn {
+    font-family: var(--font-family);
+    font-size: 1.2rem;
+    border-radius: 5px;
+    transition: all 0.2s;
+    background-color: #ff6b6b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #d35454;
+    transform: translateY(0);
+}
+
+#retry-btn:hover {
+    background-color: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #d35454;
+}
+
+#retry-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #d35454;
+}
+
 .instructions {
-    margin-top: 30px;
-    font-size: 16px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
     line-height: 1.5;
-    color: #776e65;
+    font-weight: 500;
+    text-align: left;
+}
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    backdrop-filter: none;
+    z-index: 10;
+}
+
+.back-btn:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+    transform: none;
 }
 
 /* Animations */
@@ -343,37 +428,60 @@ body {
 
 /* Responsiveness */
 @media screen and (max-width: 520px) {
-    .container {
-        width: 100%;
-        padding: 10px;
-    }
-
-    .title {
-        font-size: 50px;
-    }
-
     .game-container {
         width: 100%;
-        /* Keep aspect ratio square based on width (approx) or fixed smaller size */
         height: auto;
         aspect-ratio: 1 / 1;
         padding: 10px;
-        box-sizing: border-box;
+    }
+
+    .grid-container {
+        gap: 10px;
+        padding: 10px;
     }
 
     .tile-container {
         margin: 10px;
     }
 
-    .grid-container {
-        gap: 10px;
+    .back-btn {
+        font-size: 1rem;
+        padding: 8px 12px;
     }
 
-    .score-box {
-        min-width: 60px;
-        padding: 5px 10px;
+    h1 {
+        font-size: 3rem;
+        margin-top: 40px;
+    }
+}
+
+/* Responsive Layout for Large Screens */
+@media (min-width: 1100px) {
+    .game-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        position: relative;
+        margin-top: 2rem;
+        max-width: 1400px;
+        width: 95%;
     }
 
-    /* Need to recalculate tile sizes in JS or use relative units like % */
-    /* For simplicity in CSS, we can use percentages for tile positions based on grid */
+    .game-container {
+        margin: 0;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .scoreboard {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin-top: 0;
+        width: 300px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 }

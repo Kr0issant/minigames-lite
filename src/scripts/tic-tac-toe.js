@@ -71,7 +71,7 @@ function checkWin() {
         }
     });
 
-    return gameEnded ? "tie" : victor;
+    return gameEnded && victor === "" ? "tie" : victor;
 }
 
 function reset() {

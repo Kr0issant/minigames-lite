@@ -60,9 +60,12 @@ class GameManager {
         const grid = document.querySelector('.grid-container');
 
         if (grid && gridCell) {
-            const computed = window.getComputedStyle(gridCell);
-            window.tileSize = parseFloat(computed.width);
-            window.tileGap = 15; // Assume fixed gap for now per CSS
+            const computedCell = window.getComputedStyle(gridCell);
+            const computedGrid = window.getComputedStyle(grid);
+
+            window.tileSize = parseFloat(computedCell.width);
+            window.tileGap = parseFloat(computedGrid.gap) || 15;
+            window.gridPadding = parseFloat(computedGrid.paddingLeft) || 15;
 
             // Robust Alignment: match grid container exactly
             // Since grid-container is in normal flow inside padding, offsetLeft/Top catches that padding.
@@ -75,6 +78,7 @@ class GameManager {
             // Fallback
             window.tileSize = 106.25;
             window.tileGap = 15;
+            window.gridPadding = 15;
         }
     }
 
@@ -89,15 +93,23 @@ class GameManager {
 
             switch (event.key) {
                 case "ArrowUp":
+                case "W":
+                case "w":
                     this.move("up");
                     break;
                 case "ArrowDown":
+                case "S":
+                case "s":
                     this.move("down");
                     break;
                 case "ArrowLeft":
+                case "A":
+                case "a":
                     this.move("left");
                     break;
                 case "ArrowRight":
+                case "D":
+                case "d":
                     this.move("right");
                     break;
                 default:
@@ -450,9 +462,10 @@ class Tile {
         // If window.tileSize is set, use it. Otherwise fallback.
         const tileSize = window.tileSize || 106.25;
         const gap = window.tileGap || 15;
+        const padding = window.gridPadding || 15;
 
-        const xPos = this.x * (tileSize + gap);
-        const yPos = this.y * (tileSize + gap);
+        const xPos = this.x * (tileSize + gap) + padding;
+        const yPos = this.y * (tileSize + gap) + padding;
 
         this.element.style.width = `${tileSize}px`;
         this.element.style.height = `${tileSize}px`;
