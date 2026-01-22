@@ -385,9 +385,8 @@ h1 {
     left: 20px;
     text-decoration: none;
     color: white;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-family);
     font-size: 1.5rem;
-    font-weight: bold;
     background-color: rgba(0, 0, 0, 0.2);
     padding: 10px 15px;
     border-radius: 5px;
