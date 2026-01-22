@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/tetris.css">
+    <title>Tetris</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Fredoka+One&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <a href="../../index.html" class="back-btn">← Back</a>
+    <h1>TETRIS</h1>
+
+    <div class="game-content">
+        <div class="game-container" style="position: relative;">
+            <canvas id="gameCanvas" width="300" height="600"></canvas>
+            <div id="game-message" class="game-message">
+                <p id="game-message-text"></p>
+                <div class="lower">
+                    <button id="retry-btn" class="retry-btn">Try again</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="scoreboard">
+            <div class="scores-container">
+                <div class="score-box">
+                    <div class="score-label">SCORE</div>
+                    <div id="score">0</div>
+                </div>
+                <div class="score-box">
+                    <div class="score-label">BEST</div>
+                    <div id="highScore">0</div>
+                </div>
+            </div>
+            <div class="reset-div">
+                <button id="startBtn" class="reset-btn">START</button>
+            </div>
+            <div class="controls-info">
+                <p>Use Arrow Keys or WASD to Move & Rotate</p>
+                <p>Up/W: Rotate | Down/S: Soft Drop</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/tetris.js"></script>
+</body>
+
+</html>

@@ -21,9 +21,8 @@ h1 {
 
 #gameCanvas {
     background-color: rgba(247, 246, 246, 0.8);
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    /* Border handled by JS drawing, but we can add a subtle one here */
     border: 4px solid rgba(255, 255, 255, 0.5);
 }
 
@@ -134,10 +133,11 @@ h1 {
 
 @media (max-width: 640px) {
     #gameCanvas {
-        width: 90vw;
-        height: 90vw;
-        max-width: 400px;
-        max-height: 400px;
+        width: 80vw;
+        height: 160vw;
+        /* Keep 1:2 aspect ratio */
+        max-width: 300px;
+        max-height: 600px;
     }
 
     .back-btn {
@@ -193,15 +193,14 @@ h1 {
     text-align: center;
     animation: fade-in 200ms ease;
     animation-fill-mode: both;
-    border-radius: 20px;
+    border-radius: 10px;
     padding-bottom: 40px;
 }
 
 .game-message p {
     font-size: 60px;
     font-weight: 700;
-    height: 60px;
-    line-height: 60px;
+    line-height: 1.1;
     margin-bottom: 20px;
     font-family: var(--heading-font);
     color: #555151;
@@ -209,16 +208,6 @@ h1 {
 
 .game-message.game-over {
     display: flex;
-}
-
-.game-message.game-won {
-    display: flex;
-    background: rgba(237, 194, 46, 0.5);
-    color: #f9f6f2;
-}
-
-.game-message.game-won p {
-    color: #f9f6f2;
 }
 
 .retry-btn {
