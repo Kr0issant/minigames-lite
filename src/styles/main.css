@@ -5,14 +5,17 @@
     --card-hover-transform: translateY(-5px);
     --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --card-hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-    --text-color: #333;
+    --text-color: #555151;
+    --font-family: 'Fredoka One', sans-serif;
+    --heading-font: 'Fredoka One', cursive, sans-serif;
 }
 
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-family);
     background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    /* background-image: url("../../bg.png"); */
     min-height: 100vh;
     color: var(--text-color);
     display: flex;
@@ -33,8 +36,9 @@ header {
 h1 {
     margin: 0;
     color: white;
-    font-size: 2.5rem;
+    font-family: var(--heading-font);
     font-weight: 700;
+    font-size: 4rem;
     text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
