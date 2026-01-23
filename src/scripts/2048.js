@@ -193,10 +193,10 @@ class GameManager {
                         // next is already at positions.next
 
                         // Remove old tiles from DOM after animation
-                        setTimeout(() => {
+                        tile.element.addEventListener('transitionend', () => {
                             if (tile.element.parentNode) tile.element.remove();
                             if (next.element.parentNode) next.element.remove();
-                        }, 100);
+                        }, { once: true });
 
                         // Update Score
                         this.score += merged.value;
