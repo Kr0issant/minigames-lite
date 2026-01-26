@@ -362,4 +362,57 @@ document.addEventListener('keydown', handleInput);
 startBtn.addEventListener('click', startGame);
 
 // Initial draw
+// Initial draw
 initGame();
+
+// === TOUCH CONTROLS ===
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+}, { passive: false });
+
+document.addEventListener('touchend', (e) => {
+    if (!isGameRunning) return;
+
+    const touchEndX = e.changedTouches[0].screenX;
+    const touchEndY = e.changedTouches[0].screenY;
+
+    handleSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
+}, { passive: false });
+
+function handleSwipe(startX, startY, endX, endY) {
+    const deltaX = endX - startX;
+    const deltaY = endY - startY;
+
+    // Minimum swipe distance to trigger move
+    if (Math.abs(deltaX) < 30 && Math.abs(deltaY) < 30) return;
+
+    const lastMove = inputQueue.length > 0
+        ? inputQueue[inputQueue.length - 1]
+        : { x: velocityX, y: velocityY };
+
+    let newDirection = null;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal Swipe
+        if (deltaX > 0 && lastMove.x !== -1) {
+            newDirection = { x: 1, y: 0 }; // Right
+        } else if (deltaX < 0 && lastMove.x !== 1) {
+            newDirection = { x: -1, y: 0 }; // Left
+        }
+    } else {
+        // Vertical Swipe
+        if (deltaY > 0 && lastMove.y !== -1) {
+            newDirection = { x: 0, y: 1 }; // Down
+        } else if (deltaY < 0 && lastMove.y !== 1) {
+            newDirection = { x: 0, y: -1 }; // Up
+        }
+    }
+
+    if (newDirection) {
+        inputQueue.push(newDirection);
+    }
+}

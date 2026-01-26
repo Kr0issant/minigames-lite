@@ -1,103 +1,276 @@
 :root {
     --bg-gradient-start: #00c6ff;
     --bg-gradient-end: #0072ff;
-    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --card-hover-bg: rgba(255, 255, 255, 0.2);
+    --card-border: 1px solid rgba(255, 255, 255, 0.2);
     --card-hover-transform: translateY(-5px);
-    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --card-hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-    --text-color: #555151;
-    --font-family: 'Fredoka One', sans-serif;
+    --card-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    --card-hover-shadow: 0 0 20px rgba(255, 255, 255, 0.2), 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    --text-color: #ffffff;
+    /* White text for glass */
+    --font-family: 'Outfit', sans-serif;
     --heading-font: 'Fredoka One', cursive, sans-serif;
+}
+
+
+
+
+html {
+    background-color: #0f2027;
+    /* Dark fallback to match image */
+    overscroll-behavior: none;
+    height: 100%;
 }
 
 body {
     margin: 0;
     padding: 0;
     font-family: var(--font-family);
-    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    background: #0f2027 url('../assets/Untitled_design.png') no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+    background-size: cover;
     min-height: 100vh;
     color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
+    overscroll-behavior: none;
 }
 
 header {
     width: 100%;
-    padding: 2rem 0;
+    padding: 3rem 0;
     text-align: center;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: transparent;
+    margin-bottom: 1rem;
 }
 
 h1 {
     margin: 0;
     color: white;
-    font-family: var(--heading-font);
-    font-weight: 700;
-    font-size: 4rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: 'Momo Signature', cursive;
+    font-weight: 400;
+    font-size: 5rem;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.lite-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #FFD700;
+    font-style: normal;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.header-subtitle {
+    font-family: var(--font-family);
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 0.5rem;
+    font-weight: 300;
+    letter-spacing: 1px;
 }
 
 .container {
     width: 90%;
     max-width: 1200px;
-    padding: 0 1rem 2rem;
+    padding: 0 1rem 4rem;
 }
 
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 5rem;
     width: 100%;
+    justify-items: center;
+    /* Center items in their cells */
+}
+
+/* Floating Animation */
+@keyframes float {
+    0% {
+        transform: translate(-50%, 0px);
+    }
+
+    50% {
+        transform: translate(-50%, -10px);
+    }
+
+    100% {
+        transform: translate(-50%, 0px);
+    }
 }
 
 .game-card {
-    background: var(--card-bg);
-    border-radius: 1rem;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 1px solid transparent;
+    border-radius: 24px;
+    /* More rounded */
     overflow: hidden;
-    aspect-ratio: 1;
+    /* Keep content inside */
+    width: 100%;
+    aspect-ratio: 1.2/1;
+    /* Slightly rectangular */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    justify-content: flex-end;
+    /* Align content to bottom */
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
-    box-shadow: var(--card-shadow);
+    box-shadow: none;
     position: relative;
     text-decoration: none;
-    color: inherit;
+    color: var(--text-color);
+    padding-bottom: 2rem;
+    /* Space for content */
 }
 
-.game-card:hover {
-    transform: var(--card-hover-transform);
-    box-shadow: var(--card-hover-shadow);
-    z-index: 10;
-}
-
+/* Default State: Icon is centered and floating */
 .game-icon {
     font-size: 3rem;
-    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: float 4s ease-in-out infinite;
+    z-index: 2;
 }
 
-.game-title {
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center;
-    padding: 0 0.5rem;
+.game-icon-img {
+    width: 110px;
+    height: 110px;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    transition: transform 0.3s ease;
 }
+
+/* Hidden Content by default */
+.game-title,
+.game-description,
+.game-info {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 3;
+    position: relative;
+    /* Stack above background */
+}
+
+/* ================= HOVER STATE ================= */
+
+.game-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2),
+        0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.game-card:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+}
+
+/* Icon moves up on hover */
+.game-card:hover .game-icon {
+    top: 25%;
+    /* Move up */
+    transform: translate(-50%, -50%);
+    animation: none;
+    /* Stop floating */
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.8));
+}
+
+/* Content reveals */
+.game-card:hover .game-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.game-card:hover .game-description {
+    opacity: 0.9;
+    transform: translateY(0);
+    transition-delay: 0.05s;
+}
+
+.game-card:hover .game-info {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+}
+
+/* Typography styles */
+.game-title {
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.game-description {
+    font-size: 0.95rem;
+    font-weight: 300;
+    text-align: center;
+    padding: 0 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.game-tag {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.game-cta {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #ffe259;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
     .games-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1.5rem;
     }
 
     h1 {
-        font-size: 2rem;
+        font-size: 3rem;
+    }
+
+    .game-title {
+        font-size: 1.2rem;
+    }
+
+    .game-description {
+        display: none;
+        /* Hide desc on mobile to save space */
     }
 }
 
@@ -105,31 +278,81 @@ h1 {
    Music Player V3 Styles
    ============================ */
 
-/* The floating widget container */
 .music-player-v3 {
     position: fixed;
     bottom: 20px;
     right: 20px;
     width: 260px;
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    /* New glass */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    /* More rounded */
     padding: 15px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     color: white;
     font-family: var(--font-family);
     display: flex;
     flex-direction: column;
     gap: 10px;
     z-index: 2000;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+.music-player-v3.minimized {
+    width: 54px;
+    height: 54px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    /* Subtle when minimized */
+    border-color: rgba(255, 255, 255, 0.2);
+    animation: float 4s ease-in-out infinite;
+    /* Reuse float animation */
+}
+
+/* Hover effects */
 .music-player-v3:hover {
-    background: rgba(255, 255, 255, 0.35);
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Helper to hide content when minimized */
+.music-player-v3.minimized .music-content-wrapper {
+    display: none;
+}
+
+/* Toggle Button */
+.music-toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.music-player-v3:not(.minimized) .music-toggle-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    z-index: 10;
 }
 
 /* Marquee / Scrolling Song Title */
@@ -146,20 +369,24 @@ h1 {
     padding-left: 100%;
     animation: scroll-text 12s linear infinite;
     font-size: 0.95rem;
-    font-weight: 700;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    font-weight: 600;
 }
 
 @keyframes scroll-text {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
 /* Progress Bar */
 .progress-area {
     width: 100%;
     height: 6px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     cursor: pointer;
     position: relative;
@@ -169,9 +396,11 @@ h1 {
 .progress-fill {
     height: 100%;
     background: #fff;
+    /* or yellow? */
     width: 0%;
     border-radius: 10px;
     transition: width 0.1s linear;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 /* Controls (Prev, Play, Next) */
@@ -179,7 +408,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 }
 
 .ctrl-btn {
@@ -187,18 +416,19 @@ h1 {
     border: none;
     color: white;
     cursor: pointer;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     transition: transform 0.2s;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
     padding: 0;
 }
 
 .ctrl-btn:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
+    color: #ffe259;
 }
 
 .play-pause-btn {
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 
 /* Volume Controls */
@@ -215,31 +445,99 @@ h1 {
     border: none;
     color: white;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding: 0;
     opacity: 0.8;
-}
-
-.vol-btn:hover {
-    opacity: 1;
-    transform: scale(1.1);
 }
 
 .vol-slider {
     flex-grow: 1;
     -webkit-appearance: none;
+    appearance: none;
     height: 4px;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 2px;
     outline: none;
 }
 
 .vol-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     background: white;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Positioning */
+@media (max-width: 600px) {
+    .music-player-v3 {
+        bottom: auto;
+        top: 20px;
+        right: 20px;
+    }
+}
+
+.copyright-footer {
+    margin-top: auto;
+    padding: 1rem 0 2rem;
+    width: 100%;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8rem;
+    font-family: var(--font-family);
+    z-index: 100;
+}
+
+/* Profile Icons */
+.profile-link {
+    position: absolute;
+    top: 30px;
+    width: 50px;
+    height: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profile-link:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Harsh - Neon Orange */
+.profile-link.left {
+    left: 30px;
+    color: #FF5F1F;
+    text-shadow: 0 0 10px rgba(255, 95, 31, 0.5);
+}
+
+.profile-link.left:hover {
+    border-color: #FF5F1F;
+    box-shadow: 0 0 15px rgba(255, 95, 31, 0.6);
+    color: #FF5F1F;
+}
+
+/* Krishna - Neon Purple */
+.profile-link.right {
+    right: 30px;
+    color: #D500F9;
+    text-shadow: 0 0 10px rgba(213, 0, 249, 0.5);
+}
+
+.profile-link.right:hover {
+    border-color: #D500F9;
+    box-shadow: 0 0 15px rgba(213, 0, 249, 0.6);
+    color: #D500F9;
 }

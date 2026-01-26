@@ -9,31 +9,62 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Fredoka+One&family=Inter:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Fredoka+One&family=Inter:wght@300;400;500;600;700&family=Momo+Signature&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
+    <!-- Profile Icons -->
+    <a href="https://harsh596.github.io/My-Portfolio/" class="profile-link left" target="_blank"
+        title="Harsh's Portfolio">
+        <i class="game-icon-img" style="font-style: normal; font-size: 1.5rem; width: auto; height: auto;">H</i>
+    </a>
+    <a href="#" class="profile-link right" target="_blank" title="Krishna's Portfolio">
+        <i class="game-icon-img" style="font-style: normal; font-size: 1.5rem; width: auto; height: auto;">K</i>
+    </a>
+
     <header>
-        <h1>Minigames Lite</h1>
+        <h1>Minigames <span class="lite-text">Lite</span></h1>
+        <p class="header-subtitle">fun games you might like 😜</p>
     </header>
 
     <main class="container">
         <div class="games-grid">
             <!-- Placeholder Game Cards -->
             <a href="#" onclick="openGame('src/pages/tic-tac-toe.html'); return false;" class="game-card">
-                <div class="game-icon">🎮</div>
+                <div class="game-icon">
+                    <img src="src/assets/tic-tac-toe-icon.svg" alt="Tic Tac Toe" class="game-icon-img">
+                </div>
                 <div class="game-title">Tic Tac Toe</div>
+                <p class="game-description">Classic X's and O's strategy.</p>
+                <div class="game-info">
+                    <span class="game-tag">Strategy</span>
+                    <span class="game-cta">Click to play</span>
+                </div>
             </a>
             <a href="#" onclick="openGame('src/pages/snake.html'); return false;" class="game-card">
-                <div class="game-icon">🐍</div>
+                <div class="game-icon">
+                    <img src="src/assets/snake.svg" alt="Snake" class="game-icon-img">
+                </div>
                 <div class="game-title">Snake</div>
+                <p class="game-description">Eat apples, don't crash!</p>
+                <div class="game-info">
+                    <span class="game-tag">Arcade</span>
+                    <span class="game-cta">Click to play</span>
+                </div>
             </a>
             <a href="#" onclick="openGame('src/pages/tetris.html'); return false;" class="game-card">
-                <div class="game-icon">🧱</div>
+                <div class="game-icon">
+                    <img src="src/assets/tetris.png" alt="Tetris" class="game-icon-img">
+                </div>
                 <div class="game-title">Tetris</div>
+                <p class="game-description">Stack blocks and clear lines.</p>
+                <div class="game-info">
+                    <span class="game-tag">Puzzle</span>
+                    <span class="game-cta">Click to play</span>
+                </div>
             </a>
-            <a href="#" class="game-card">
+            <!-- <a href="#" class="game-card">
                 <div class="game-icon">🏓</div>
                 <div class="game-title">Pong</div>
             </a>
@@ -52,12 +83,19 @@
             <a href="#" class="game-card">
                 <div class="game-icon">🎯</div>
                 <div class="game-title">Aim Trainer</div>
-            </a>
+            </a> -->
             <a href="#" onclick="openGame('src/pages/2048.html'); return false;" class="game-card">
-                <div class="game-icon">🔢</div>
+                <div class="game-icon">
+                    <img src="src/assets/2048.svg" alt="2048" class="game-icon-img">
+                </div>
                 <div class="game-title">2048</div>
+                <p class="game-description">Combine tiles to reach 2048.</p>
+                <div class="game-info">
+                    <span class="game-tag">Brain</span>
+                    <span class="game-cta">Click to play</span>
+                </div>
             </a>
-            <a href="#" class="game-card">
+            <!-- <a href="#" class="game-card">
                 <div class="game-icon">🃏</div>
                 <div class="game-title">Solitaire</div>
             </a>
@@ -68,10 +106,17 @@
             <a href="#" class="game-card">
                 <div class="game-icon">♟️</div>
                 <div class="game-title">Chess</div>
-            </a>
+            </a> -->
             <a href="#" onclick="openGame('src/pages/sudoku.html'); return false;" class="game-card">
-                <div class="game-icon">🎛️</div>
+                <div class="game-icon">
+                    <img src="src/assets/sudoku.svg" alt="Sudoku" class="game-icon-img">
+                </div>
                 <div class="game-title">Sudoku</div>
+                <p class="game-description">Fill the grid with numbers.</p>
+                <div class="game-info">
+                    <span class="game-tag">Puzzle</span>
+                    <span class="game-cta">Click to play</span>
+                </div>
             </a>
         </div>
     </main>
@@ -79,6 +124,8 @@
         style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100;">
 
     </div>
+
+    <div class="copyright-footer">@Copyright by Harsh and Krishna</div>
 
     <script src="src/scripts/background-music.js"></script>
     <script>
@@ -98,12 +145,14 @@
             iframe.style.border = 'none';
             iframe.src = url;
             gameView.appendChild(iframe);
+            document.querySelector('.copyright-footer').style.display = 'none';
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
 
         function _hideGameUI() {
             gameView.style.display = 'none';
             document.body.style.overflow = ''; // Restore scrolling
+            document.querySelector('.copyright-footer').style.display = 'block';
             gameView.innerHTML = ''; // Destroy iframe
         }
 

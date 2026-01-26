@@ -47,28 +47,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === DOM CREATION ===
     const widget = document.createElement('div');
-    widget.className = 'music-player-v3';
+    widget.className = 'music-player-v3 minimized'; // Default to minimized
     widget.innerHTML = `
-        <div class="song-info-container">
-            <div class="song-title-scroll" id="song-title"></div>
-        </div>
-        
-        <div class="progress-area" id="progress-area">
-            <div class="progress-fill" id="progress-fill"></div>
-        </div>
-        
-        <div class="controls-main">
-            <button class="ctrl-btn" id="prev-btn" title="Previous">⏮️</button>
-            <button class="ctrl-btn play-pause-btn" id="play-btn" title="Play/Pause">
-                ${state.isPlaying ? '⏸️' : '▶️'}
-            </button>
-            <button class="ctrl-btn" id="next-btn" title="Next">⏭️</button>
-        </div>
-        
-        <div class="volume-area">
-            <button class="vol-btn" id="vol-down" title="Volume Down">➖</button>
-            <input type="range" class="vol-slider" id="vol-slider" min="0" max="1" step="0.05" value="${state.volume}">
-            <button class="vol-btn" id="vol-up" title="Volume Up">➕</button>
+        <button class="music-toggle-btn" id="music-toggle-btn">🎵</button>
+        <div class="music-content-wrapper" id="music-content">
+            <div class="song-info-container">
+                <div class="song-title-scroll" id="song-title"></div>
+            </div>
+            
+            <div class="progress-area" id="progress-area">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            
+            <div class="controls-main">
+                <button class="ctrl-btn" id="prev-btn" title="Previous">⏮️</button>
+                <button class="ctrl-btn play-pause-btn" id="play-btn" title="Play/Pause">
+                    ${state.isPlaying ? '⏸️' : '▶️'}
+                </button>
+                <button class="ctrl-btn" id="next-btn" title="Next">⏭️</button>
+            </div>
+            
+            <div class="volume-area">
+                <button class="vol-btn" id="vol-down" title="Volume Down">➖</button>
+                <input type="range" class="vol-slider" id="vol-slider" min="0" max="1" step="0.05" value="${state.volume}">
+                <button class="vol-btn" id="vol-up" title="Volume Up">➕</button>
+            </div>
         </div>
     `;
     document.body.appendChild(widget);
@@ -84,6 +87,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const volumeSlider = document.getElementById('vol-slider');
     const volDownBtn = document.getElementById('vol-down');
     const volUpBtn = document.getElementById('vol-up');
+    const toggleBtn = document.getElementById('music-toggle-btn');
+    const contentWrapper = document.getElementById('music-content');
+
+    // === TOGGLE LOGIC ===
+    toggleBtn.addEventListener('click', (e) => {
+        // Prevent bubbling if we decide to click the widget to open
+        e.stopPropagation(); 
+        widget.classList.toggle('minimized');
+    });
 
     // === CORE FUNCTIONS ===
     const saveState = () => {

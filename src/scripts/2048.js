@@ -473,6 +473,5 @@ class Tile {
 
         this.inner.style.lineHeight = `${tileSize}px`;
 
-        // Optional: dynamic font size could be added here
     }
 }
