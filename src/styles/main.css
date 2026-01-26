@@ -14,31 +14,63 @@ body {
     margin: 0;
     padding: 0;
     font-family: var(--font-family);
-    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
     min-height: 100vh;
     color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: -5vh;
+    left: -5vw;
+    width: 110vw;
+    height: 110vh;
+    background-image: url("../assets/background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    transform: translate(var(--bg-x, 0), var(--bg-y, 0));
+    transition: transform 0.1s ease-out;
 }
 
 header {
     width: 100%;
-    padding: 2rem 0;
+    padding: 3rem 0;
     text-align: center;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: transparent;
+    margin-bottom: 1rem;
 }
 
 h1 {
     margin: 0;
     color: white;
-    font-family: var(--heading-font);
-    font-weight: 700;
-    font-size: 4rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: 'Momo Signature', cursive;
+    font-weight: 400;
+    font-size: 5rem;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.lite-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    color: #FFD700;
+    font-style: normal;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.header-subtitle {
+    font-family: var(--font-family);
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 0.5rem;
+    font-weight: 300;
+    letter-spacing: 1px;
 }
 
 .container {
@@ -78,8 +110,19 @@ h1 {
 }
 
 .game-icon {
-    font-size: 3rem;
+    width: 64px;
+    height: 64px;
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* font-size: 3rem; Removed for PNGs, but kept for Runner fallback if needed inline style */
+}
+
+.game-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .game-title {
@@ -99,147 +142,8 @@ h1 {
     h1 {
         font-size: 2rem;
     }
-}
 
-/* ============================
-   Music Player V3 Styles
-   ============================ */
-
-/* The floating widget container */
-.music-player-v3 {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 260px;
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    padding: 15px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    color: white;
-    font-family: var(--font-family);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 2000;
-    transition: all 0.3s ease;
-}
-
-.music-player-v3:hover {
-    background: rgba(255, 255, 255, 0.35);
-    transform: translateY(-2px);
-}
-
-/* Marquee / Scrolling Song Title */
-.song-info-container {
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-}
-
-.song-title-scroll {
-    display: inline-block;
-    padding-left: 100%;
-    animation: scroll-text 12s linear infinite;
-    font-size: 0.95rem;
-    font-weight: 700;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-}
-
-@keyframes scroll-text {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-}
-
-/* Progress Bar */
-.progress-area {
-    width: 100%;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: #fff;
-    width: 0%;
-    border-radius: 10px;
-    transition: width 0.1s linear;
-}
-
-/* Controls (Prev, Play, Next) */
-.controls-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-
-.ctrl-btn {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 1.4rem;
-    transition: transform 0.2s;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-    padding: 0;
-}
-
-.ctrl-btn:hover {
-    transform: scale(1.2);
-}
-
-.play-pause-btn {
-    font-size: 2rem;
-}
-
-/* Volume Controls */
-.volume-area {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-top: 5px;
-}
-
-.vol-btn {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 0;
-    opacity: 0.8;
-}
-
-.vol-btn:hover {
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-.vol-slider {
-    flex-grow: 1;
-    -webkit-appearance: none;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 2px;
-    outline: none;
-}
-
-.vol-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
-    background: white;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    body::before {
+        background-attachment: scroll;
+    }
 }

@@ -8,133 +8,87 @@
     <title>Minigames Lite</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Fredoka+One&family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Fredoka+One&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Signature&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <h1>Minigames Lite</h1>
+        <h1>Minigames <span class="lite-text">Lite</span></h1>
+        <p class="header-subtitle">fun games you might like 😜</p>
     </header>
 
     <main class="container">
         <div class="games-grid">
-            <!-- Placeholder Game Cards -->
-            <a href="#" onclick="openGame('src/pages/tic-tac-toe.html'); return false;" class="game-card">
-                <div class="game-icon">🎮</div>
+            <a href="src/pages/tic-tac-toe.html" class="game-card">
+                <div class="game-icon">
+                    <img src="src/assets/icons/tic-tac-toe.png" alt="Tic Tac Toe">
+                </div>
                 <div class="game-title">Tic Tac Toe</div>
             </a>
-            <a href="#" onclick="openGame('src/pages/snake.html'); return false;" class="game-card">
-                <div class="game-icon">🐍</div>
+            <a href="src/pages/snake.html" class="game-card">
+                <div class="game-icon">
+                    <img src="src/assets/icons/snake.png" alt="Snake">
+                </div>
                 <div class="game-title">Snake</div>
             </a>
-            <a href="#" onclick="openGame('src/pages/tetris.html'); return false;" class="game-card">
-                <div class="game-icon">🧱</div>
+            <a href="src/pages/tetris.html" class="game-card">
+                <div class="game-icon">
+                    <img src="src/assets/icons/tetris.png" alt="Tetris">
+                </div>
                 <div class="game-title">Tetris</div>
             </a>
             <a href="#" class="game-card">
-                <div class="game-icon">🏓</div>
+                <div class="game-icon">
+                    <img src="src/assets/icons/pong.png" alt="Pong">
+                </div>
                 <div class="game-title">Pong</div>
             </a>
             <a href="#" class="game-card">
-                <div class="game-icon">💣</div>
+                <div class="game-icon">
+                    <img src="src/assets/icons/minesweeper.png" alt="Minesweeper">
+                </div>
                 <div class="game-title">Minesweeper</div>
             </a>
             <a href="#" class="game-card">
-                <div class="game-icon">🧠</div>
+                <div class="game-icon">
+                    <img src="src/assets/icons/memory.png" alt="Memory">
+                </div>
                 <div class="game-title">Memory</div>
             </a>
-            <a href="#" class="game-card">
-                <div class="game-icon">🏃</div>
-                <div class="game-title">Runner</div>
-            </a>
-            <a href="#" class="game-card">
-                <div class="game-icon">🎯</div>
+            <a href="src/pages/aim-trainer.html" class="game-card">
+                <div class="game-icon">
+                    <img src="src/assets/icons/aim-trainer.png" alt="Aim Trainer">
+                </div>
                 <div class="game-title">Aim Trainer</div>
             </a>
-            <a href="#" onclick="openGame('src/pages/2048.html'); return false;" class="game-card">
-                <div class="game-icon">🔢</div>
+            <a href="src/pages/2048.html" class="game-card">
+                <div class="game-icon">
+                    <img src="src/assets/icons/2048.png" alt="2048">
+                </div>
                 <div class="game-title">2048</div>
             </a>
-            <a href="#" class="game-card">
-                <div class="game-icon">🃏</div>
-                <div class="game-title">Solitaire</div>
+            <a href="src/pages/traffic-racer.html" class="game-card">
+                <div class="game-icon">
+                    <img src="src/assets/icons/racing.png" alt="Racing">
+                </div>
+                <div class="game-title">Traffic Racer</div>
             </a>
             <a href="#" class="game-card">
-                <div class="game-icon">🏎️</div>
-                <div class="game-title">Racing</div>
-            </a>
-            <a href="#" class="game-card">
-                <div class="game-icon">♟️</div>
+                <div class="game-icon">
+                    <img src="src/assets/icons/chess.png" alt="Chess">
+                </div>
                 <div class="game-title">Chess</div>
             </a>
-            <a href="#" onclick="openGame('src/pages/sudoku.html'); return false;" class="game-card">
-                <div class="game-icon">🎛️</div>
+            <a href="src/pages/sudoku.html" class="game-card">
+                <div class="game-icon">
+                    <img src="src/assets/icons/sudoku.png" alt="Sudoku">
+                </div>
                 <div class="game-title">Sudoku</div>
             </a>
         </div>
     </main>
-    <div id="game-view-container"
-        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100;">
-
-    </div>
-
-    <script src="src/scripts/background-music.js"></script>
-    <script>
-        const dashboard = document.querySelector('.container');
-        const header = document.querySelector('header');
-        const gameView = document.getElementById('game-view-container');
-
-
-        // Helper to update UI visibility
-        // Helper to update UI visibility
-        function _showGameUI(url) {
-            gameView.style.display = 'block';
-            gameView.innerHTML = '';
-            const iframe = document.createElement('iframe');
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            iframe.style.border = 'none';
-            iframe.src = url;
-            gameView.appendChild(iframe);
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        }
-
-        function _hideGameUI() {
-            gameView.style.display = 'none';
-            document.body.style.overflow = ''; // Restore scrolling
-            gameView.innerHTML = ''; // Destroy iframe
-        }
-
-        window.openGame = function (url) {
-            // Push state so Browser Back button works
-            // Store the URL in the state so we can restore it on Forward
-            history.pushState({ gameOpen: true, gameUrl: url }, '', '#game');
-            _showGameUI(url);
-        };
-
-        window.closeGame = function () {
-            // If we have history state, go back (which triggers popstate -> hideUI)
-            if (history.state && history.state.gameOpen) {
-                history.back();
-            } else {
-                // Fallback for weird states
-                _hideGameUI();
-            }
-        };
-
-        // Handle Browser Back/Forward Button
-        window.addEventListener('popstate', (event) => {
-            if (event.state && event.state.gameOpen && event.state.gameUrl) {
-                // We are moving FORWARD into a game state (or back to one)
-                _showGameUI(event.state.gameUrl);
-            } else {
-                // We are moving BACK to the dashboard (null state)
-                _hideGameUI();
-            }
-        });
-    </script>
+    <script src="src/scripts/background.js"></script>
 </body>
 
 </html>

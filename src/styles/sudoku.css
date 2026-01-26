@@ -1,6 +1,11 @@
 :root {
-    --bg-color: #f8f9fa;
-    --text-color: #2c3e50;
+    --bg-color: #faf8ef;
+    --text-color: #776e65;
+    --text-light: #f9f6f2;
+    --font-family: 'Fredoka One', sans-serif;
+    --heading-font: 'Fredoka One', cursive, sans-serif;
+
+    /* Sudoku Specifics */
     --accent-color: #3498db;
     --accent-hover: #2980b9;
     --grid-border: #34495e;
@@ -15,76 +20,86 @@
     --user-text: #3498db;
 }
 
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Outfit', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
 }
 
-.container {
-    max-width: 600px;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
+body {
+    font-family: var(--font-family);
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
-header {
-    width: 100%;
+h1 {
+    font-family: var(--heading-font);
+    font-size: 3rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
     text-align: center;
 }
 
-h1 {
-    font-weight: 600;
-    margin: 0 0 15px 0;
-    font-size: 2.5rem;
-    color: var(--text-color);
-}
-
-.stats-bar {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
-    font-weight: 400;
-    padding: 0 10px;
-}
-
-.stat-item {
+/* --- LAYOUT --- */
+.game-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-.stat-label {
-    font-size: 0.8rem;
-    color: #7f8c8d;
-    margin-bottom: 2px;
+/* Left/Main Column: Game Board */
+.game-container {
+    position: relative;
+    padding: 15px;
+    cursor: default;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    touch-action: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 4px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Right Column: Controls & Stats */
+.scoreboard {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    /* Wider for numpad */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 /* --- BOARD STYLES --- */
-.game-area {
-    margin-bottom: 20px;
-}
-
 #sudoku-board {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(9, 1fr);
-    width: 540px;
-    height: 540px;
+    /* Make it responsive but bounded */
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1 / 1;
     background-color: var(--grid-border);
     border: 2px solid var(--grid-border);
     gap: 1px;
-    /* Creates the thin internal borders */
     user-select: none;
     box-shadow: var(--card-shadow);
     border-radius: 4px;
@@ -99,42 +114,35 @@ h1 {
     font-size: 1.5rem;
     font-weight: 400;
     cursor: pointer;
+    font-family: 'Outfit', sans-serif;
     transition: background-color 0.1s;
 }
 
-/* Thicker borders for 3x3 subgrids */
-/* Add margin to right of 3rd and 6th column */
+/* Thicker borders for 3x3 subgrids (pure CSS trickery) */
 .tile:nth-child(3n) {
     border-right: 2px solid var(--grid-border);
 }
 
-/* Except the very last column */
 .tile:nth-child(9n) {
     border-right: none;
 }
 
-/* Add margin to bottom of 3rd and 6th row */
-/* Since it's a flat list of 81 divs, we target ranges or add classes in JS. 
-   Simplest CSS-only way with grid gap manipulation:
-*/
+.tile.border-right {
+    border-right: 2px solid var(--grid-border);
+}
+
+.tile.border-bottom {
+    border-bottom: 2px solid var(--grid-border);
+}
+
+/* Gaps handling override */
 #sudoku-board {
     gap: 0;
-    border: 2px solid var(--grid-border);
 }
 
 .tile {
     border-right: 1px solid var(--cell-border);
     border-bottom: 1px solid var(--cell-border);
-}
-
-/* Right border thick */
-.tile.border-right {
-    border-right: 2px solid var(--grid-border);
-}
-
-/* Bottom border thick */
-.tile.border-bottom {
-    border-bottom: 2px solid var(--grid-border);
 }
 
 /* Cell States */
@@ -164,41 +172,76 @@ h1 {
     background-color: #fadbd8;
 }
 
-/* --- CONTROLS --- */
-.controls {
-    width: 100%;
+/* --- STATS STYLES --- */
+.stats-bar {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.stat-item {
+    background: rgba(187, 160, 164, 0.8);
+    padding: 10px 15px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #eee4da;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.stat-item span:last-child {
+    font-weight: bold;
+    color: white;
+    font-size: 1.1rem;
+}
+
+/* --- CONTROLS --- */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     align-items: center;
 }
 
 .numpad {
     display: flex;
     gap: 8px;
-    margin-bottom: 20px;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
 }
 
 .number {
-    width: 40px;
-    height: 45px;
+    width: 45px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.25rem;
-    background-color: transparent;
-    color: var(--accent-color);
-    border: 1px solid var(--accent-color);
-    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: var(--text-color);
+    border: 2px solid transparent;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s;
+    font-family: var(--font-family);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .number:hover {
     background-color: var(--accent-color);
     color: white;
+    transform: translateY(-2px);
 }
 
 .action-buttons {
@@ -209,34 +252,39 @@ h1 {
 }
 
 .btn {
-    padding: 10px 25px;
-    font-size: 1rem;
+    padding: 12px 30px;
+    font-size: 1.1rem;
     border: none;
-    border-radius: 20px;
+    border-radius: 5px;
     cursor: pointer;
-    font-family: inherit;
+    font-family: var(--font-family);
     font-weight: 500;
-    transition: transform 0.1s, box-shadow 0.2s;
+    transition: transform 0.1s, box-shadow 0.2s, background-color 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .btn.primary {
-    background-color: var(--text-color);
+    background-color: #ff6b6b;
     color: white;
+    box-shadow: 0 4px 0 #d35454;
 }
 
 .btn:hover {
+    background-color: #ff5252;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 0 #d35454;
 }
 
 .btn:active {
-    transform: translateY(0);
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #d35454;
 }
 
-/* Difficulty Menu */
+/* --- DIFFICULTY MENU --- */
 .difficulty-options {
     position: absolute;
-    bottom: 50px;
+    bottom: 60px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -258,11 +306,36 @@ h1 {
     font-size: 1rem;
     text-align: left;
     transition: background 0.2s;
-    width: 120px;
+    width: 140px;
+    font-family: var(--font-family);
+    color: var(--text-color);
 }
 
 .diff-btn:hover {
     background-color: var(--cell-bg-hover);
+}
+
+/* --- BACK BUTTON --- */
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    color: white;
+    font-family: var(--font-family);
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    backdrop-filter: none;
+    z-index: 10;
+    border: none;
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* --- MODAL --- */
@@ -286,15 +359,31 @@ h1 {
 
 .modal {
     background: white;
-    padding: 30px;
-    border-radius: 12px;
+    padding: 40px;
+    border-radius: 16px;
     text-align: center;
-    max-width: 300px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    font-family: 'Outfit', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
 }
 
 .modal h2 {
-    margin-top: 0;
+    margin: 0;
+    font-size: 2rem;
+    color: var(--text-color);
+    line-height: 1.2;
+}
+
+.modal p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
 }
 
 @keyframes fadeIn {
@@ -307,20 +396,83 @@ h1 {
     }
 }
 
-@media (max-width: 500px) {
-    #sudoku-board {
-        height: 100vw;
-        /* Keep it square on mobile */
-        max-height: 400px;
+/* --- RESPONSIVENESS --- */
+@media screen and (max-width: 899px) {
+    .game-container {
+        width: min(95vw, 500px);
+        max-width: 100%;
+        padding: 10px;
+        margin: 0 auto;
     }
 
-    .tile {
-        font-size: 1.2rem;
+    .back-btn {
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-top: 50px;
     }
 
     .number {
-        width: 32px;
-        height: 36px;
-        font-size: 1rem;
+        width: 35px;
+        height: 40px;
+    }
+
+    .scoreboard {
+        max-width: 100%;
+    }
+}
+
+/* Medium Screens: Side-by-side, centered as a group */
+@media (min-width: 900px) and (max-width: 1349px) {
+    .game-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 40px;
+        margin-top: 2rem;
+        width: 100%;
+        max-width: none;
+        padding: 0 20px;
+    }
+
+    .scoreboard {
+        width: 350px;
+        margin-top: 0;
+        flex-shrink: 0;
+    }
+
+    .game-container {
+        min-width: 500px;
+    }
+}
+
+/* Extra Large Screens: Game perfectly centered, scoreboard on far right */
+@media (min-width: 1350px) {
+    .game-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        position: relative;
+        margin-top: 2rem;
+        width: 100%;
+        max-width: none;
+        padding: 0 20px;
+    }
+
+    .scoreboard {
+        position: absolute;
+        right: 40px;
+        top: 0;
+        width: 350px;
+        margin-top: 0;
+    }
+
+    .game-container {
+        min-width: 500px;
     }
 }
