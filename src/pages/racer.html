@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Run</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/racer.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <button onclick="window.parent.closeGame()" class="back-btn">← Back</button>
+    <h1>TRAFFIC RUN</h1>
+
+    <div class="game-content">
+        <div id="game-wrapper">
+            <div id="game-layer">
+                <canvas id="game-canvas"></canvas>
+            </div>
+
+            <div id="ui-layer">
+                <!-- Notifications (Toasts) -->
+                <div id="notification-area"></div>
+
+                <!-- Overlays -->
+                <div id="start-screen" class="glass-card active">
+                    <h2>Peak Traffic Mode</h2>
+                    <p>Navigate the surge. Avoid active users.</p>
+                    <div class="controls-hint">
+                        <span class="key">←</span> <span class="key">→</span> to switch lanes
+                    </div>
+                    <button id="start-btn" class="primary-btn">Start Session</button>
+                </div>
+
+                <div id="game-over-screen" class="glass-card hidden">
+                    <h2>GAME OVER</h2>
+                    <p id="death-reason">CRASHED</p>
+                    <button id="restart-btn" class="primary-btn">TRY AGAIN</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="scoreboard">
+            <h2>SESSION STATS</h2>
+            <div class="stat-box">
+                <div class="stat-label">TIME ALIVE</div>
+                <div id="score-value" class="stat-value">0s</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">BEST TIME</div>
+                <div id="best-score-value" class="stat-value">0s</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">STATUS</div>
+                <div id="status-value" class="stat-value">IDLE</div>
+            </div>
+            <div class="reset-div">
+                <button id="external-restart-btn" class="reset-btn">RESTART</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/background-music.js"></script>
+    <script src="../scripts/racer.js"></script>
+</body>
+
+</html>
