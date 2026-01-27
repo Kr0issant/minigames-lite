@@ -26,10 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const newGameBtn = document.getElementById('new-game-btn');
     const difficultyMenu = document.getElementById('difficulty-menu');
     const numpad = document.getElementById('numpad');
-    const modalOverlay = document.getElementById('modal-overlay');
-    const modalTitle = document.getElementById('modal-title');
-    const modalMessage = document.getElementById('modal-message');
-    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const gameMessage = document.getElementById('game-message');
+    const gameMessageText = document.getElementById('game-message-text');
+    const gameMessageSubtext = document.getElementById('game-message-subtext');
+    const retryBtn = document.getElementById('retry-btn');
 
     // --- INITIALIZATION ---
     initGame();
@@ -97,12 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Modal Close
-    modalCloseBtn.addEventListener('click', () => {
-        modalOverlay.classList.add('hidden');
-        if (mistakes >= 3) {
-            startGame(); // Restart if lost
-        }
+    // Retry Button
+    retryBtn.addEventListener('click', () => {
+        gameMessage.style.display = 'none';
+        gameMessage.classList.remove('game-won', 'game-over');
+        startGame();
     });
 
 
@@ -118,6 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
         mistakes = 0;
         document.getElementById('mistakes-count').textContent = "0/3";
         if (winsElement) winsElement.textContent = totalWins;
+
+        // Hide Overlay
+        gameMessage.style.display = 'none';
+        gameMessage.classList.remove('game-won', 'game-over');
+
         seconds = 0;
         clearInterval(timerInterval);
         startTimer();
@@ -200,29 +204,35 @@ document.addEventListener('DOMContentLoaded', () => {
         boardElement.innerHTML = ''; // Clear existing
         selectedTile = null;
 
+        // Create 9 subgrids
+        const subgrids = [];
+        for (let i = 0; i < 9; i++) {
+            let subgrid = document.createElement('div');
+            subgrid.classList.add('subgrid');
+            boardElement.appendChild(subgrid);
+            subgrids.push(subgrid);
+        }
+
         for (let i = 0; i < 81; i++) {
             let tile = document.createElement('div');
             tile.id = i.toString();
             tile.classList.add('tile');
 
-            // Add grid borders
-            let col = i % 9;
+            // Calculate which subgrid this tile belongs to
             let row = Math.floor(i / 9);
-
-            if (col === 2 || col === 5) tile.classList.add('border-right');
-            if (row === 2 || row === 5) tile.classList.add('border-bottom');
+            let col = i % 9;
+            let subgridRow = Math.floor(row / 3);
+            let subgridCol = Math.floor(col / 3);
+            let subgridIndex = subgridRow * 3 + subgridCol;
 
             // Fill content
             if (board[i] !== 0) {
                 tile.textContent = board[i];
                 tile.classList.add('filled');
-            } else {
-                // Add event listener only to empty tiles (optional, or allow selecting all)
-                // We typically allow selecting all to highlight numbers
             }
 
             tile.addEventListener('click', () => selectTile(tile));
-            boardElement.appendChild(tile);
+            subgrids[subgridIndex].appendChild(tile);
         }
     }
 
@@ -298,18 +308,20 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(timerInterval);
 
         if (win) {
-            modalTitle.textContent = "You Won!";
-            modalMessage.textContent = `Great job! Time: ${formatTime(seconds)}`;
+            gameMessageText.textContent = "You Won!";
+            gameMessageSubtext.textContent = `Great job! Time: ${formatTime(seconds)}`;
+            gameMessage.classList.add('game-won');
 
             // Update Wins
             totalWins++;
             localStorage.setItem('sudoku_wins', totalWins);
             if (winsElement) winsElement.textContent = totalWins;
         } else {
-            modalTitle.textContent = "Game Over";
-            modalMessage.textContent = "You made 3 mistakes. Try again!";
+            gameMessageText.textContent = "Game Over!";
+            gameMessageSubtext.textContent = "You made 3 mistakes.";
+            gameMessage.classList.add('game-over');
         }
-        modalOverlay.classList.remove('hidden');
+        gameMessage.style.display = 'flex';
     }
 
     // --- UTILS ---

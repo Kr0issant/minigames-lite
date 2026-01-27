@@ -35,15 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // === STATE MANAGEMENT ===
     // Default: Playing. "Unless I press pause, the music doesn't pause."
     const defaultState = {
-        isPlaying: true,
+        isPlaying: false,
         isMuted: false,
-        volume: 0.5,
+        volume: 0.25,
         currentSongIndex: 0,
         currentTime: 0
     };
 
     let savedState = localStorage.getItem(STORAGE_KEY);
     let state = savedState ? JSON.parse(savedState) : defaultState;
+    state.isPlaying = false;
 
     // === DOM CREATION ===
     const widget = document.createElement('div');
@@ -93,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // === TOGGLE LOGIC ===
     toggleBtn.addEventListener('click', (e) => {
         // Prevent bubbling if we decide to click the widget to open
-        e.stopPropagation(); 
+        e.stopPropagation();
         widget.classList.toggle('minimized');
     });
 

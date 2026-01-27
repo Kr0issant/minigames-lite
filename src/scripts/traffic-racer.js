@@ -29,6 +29,13 @@ let GAME = {
     animationId: null
 };
 
+// DOM Elements
+const gameMessage = document.getElementById('game-message');
+const gameMessageText = document.getElementById('game-message-text');
+const gameMessageSubtext = document.getElementById('game-message-subtext');
+const startBtn = document.getElementById('start-btn');
+const controlsHint = document.getElementById('controls-hint');
+
 // Entities
 let player = {
     lane: 1, // 0 to laneCount-1
@@ -346,9 +353,10 @@ function startGame() {
     // Prevent multiple loops
     if (GAME.animationId) cancelAnimationFrame(GAME.animationId);
 
-    document.getElementById('start-screen').classList.remove('active');
-    document.getElementById('start-screen').classList.add('hidden');
-    document.getElementById('game-over-screen').classList.add('hidden');
+    if (GAME.animationId) cancelAnimationFrame(GAME.animationId);
+
+    gameMessage.classList.remove('active', 'game-over');
+    gameMessage.style.display = 'none';
 
     enemies = [];
     GAME.scoreTime = 0;
@@ -383,14 +391,20 @@ function endGame() {
         "TRAFFIC JAM",
         "TOO SLOW",
         "WRECKED",
-        "GAME OVER"
+        "GAME OVER",
+        "GIT GUD",
+        "YOU NOOB",
+        "FATALITY"
     ];
 
-    document.getElementById('death-reason').innerText = messages[Math.floor(Math.random() * messages.length)];
-    document.getElementById('final-score').innerText = GAME.scoreTime.toFixed(0) + 's';
+    gameMessageText.innerText = messages[Math.floor(Math.random() * messages.length)];
+    gameMessageSubtext.innerText = `Score: ${GAME.scoreTime.toFixed(0)}s`;
 
-    document.getElementById('game-over-screen').classList.remove('hidden');
-    document.getElementById('game-over-screen').classList.add('active');
+    gameMessage.classList.add('active', 'game-over');
+    gameMessage.style.display = 'flex';
+
+    startBtn.innerText = "TRY AGAIN";
+    controlsHint.style.display = 'none';
 }
 
 function showNotification(text) {
@@ -406,8 +420,7 @@ function showNotification(text) {
 }
 
 // Bindings
-document.getElementById('start-btn').addEventListener('click', startGame);
-document.getElementById('restart-btn').addEventListener('click', startGame);
+startBtn.addEventListener('click', startGame);
 document.getElementById('external-restart-btn').addEventListener('click', startGame);
 
 resize();

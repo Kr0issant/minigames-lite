@@ -7,10 +7,11 @@
     <title>Traffic Racer</title>
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/traffic-racer.css">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -28,21 +29,16 @@
                 <div id="notification-area"></div>
 
                 <!-- Overlays -->
-                <div id="start-screen" class="glass-card active">
-                    <h2>Deadly Traffic</h2>
-                    <p>Try to survive the traffic for as long as you can.</p>
-                    <div class="controls-hint">
+                <!-- Overlays -->
+                <div id="game-message" class="game-message active">
+                    <p id="game-message-text">Deadly Traffic</p>
+                    <p id="game-message-subtext" class="subtext">Try to survive the traffic for as long as you can.</p>
+                    <div class="controls-hint" id="controls-hint">
                         <span class="key">←</span> <span class="key">→</span> to switch lanes
                     </div>
-                    <br>
-                    <button id="start-btn" class="game-btn">Start</button>
-                </div>
-
-                <div id="game-over-screen" class="glass-card hidden">
-                    <h2>GAME OVER</h2>
-                    <p id="death-reason">CRASHED</p>
-                    <p id="final-score">0s</p>
-                    <button id="restart-btn" class="game-btn">TRY AGAIN</button>
+                    <div class="actions">
+                        <button id="start-btn" class="game-btn">Start</button>
+                    </div>
                 </div>
             </div>
         </div>
