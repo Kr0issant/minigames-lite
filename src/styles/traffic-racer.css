@@ -188,54 +188,87 @@ canvas {
 }
 
 /* === Internal Game UI Overlay === */
-.glass-card {
+/* === Internal Game UI Overlay === */
+.game-message {
+    display: none;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(29, 34, 34, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    padding: 30px;
-    width: 80%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(218, 238, 235, 0.73);
+    z-index: 100;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    box-shadow: var(--glass-shadow);
+    animation: fade-in 800ms ease 200ms;
+    animation-fill-mode: both;
+    border-radius: 20px;
+    padding: 20px;
     pointer-events: auto;
-    transition: opacity 0.3s;
 }
 
-.glass-card.hidden {
-    opacity: 0;
-    pointer-events: none;
+.game-message.active {
+    display: flex;
 }
 
-.glass-card h2 {
-    margin-top: 0;
-    font-size: 1.8rem;
-}
-
-.glass-card p {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.4;
-}
-
-.primary-btn {
-    background: white;
-    color: #0072ff;
-    border: none;
+.game-message p {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
     font-family: var(--font-heading);
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    margin-top: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    line-height: 1.2;
+    color: #615a53;
 }
 
-.primary-btn:hover {
-    transform: scale(1.05);
+.game-message .subtext {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #6f675e;
+    font-family: var(--font-body);
+}
+
+.game-message.game-over {
+    display: flex;
+    background: rgba(218, 237, 238, 0.9);
+}
+
+.controls-hint {
+    margin-bottom: 20px;
+    color: #6f675e;
+    font-family: var(--font-body);
+}
+
+.key {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.game-message .actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.game-message .game-btn {
+    width: auto;
+    min-width: 150px;
+    margin-top: 0;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 /* === Notifications === */
