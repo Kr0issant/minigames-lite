@@ -112,7 +112,8 @@ h1 {
     gap: 4px;
     padding: 2px;
     border-radius: 8px;
-    border: 2px solid rgba(52, 73, 94, 0.2);
+    
+    border: 3px solid rgba(108, 145, 166, 0.2);
 }
 
 .tile {
