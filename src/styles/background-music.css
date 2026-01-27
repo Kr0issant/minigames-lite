@@ -1,0 +1,204 @@
+/* ============================
+   Music Player V3 Styles
+   ============================ */
+
+.music-player-v3 {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 260px;
+    background: rgba(255, 255, 255, 0.15);
+    /* New glass */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    /* More rounded */
+    padding: 15px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    color: white;
+    font-family: var(--font-family);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 2000;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.music-player-v3.minimized {
+    width: 54px;
+    height: 54px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    /* Subtle when minimized */
+    border-color: rgba(255, 255, 255, 0.2);
+    animation: float 4s ease-in-out infinite;
+    /* Reuse float animation */
+}
+
+/* Hover effects */
+.music-player-v3:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Helper to hide content when minimized */
+.music-player-v3.minimized .music-content-wrapper {
+    display: none;
+}
+
+/* Toggle Button */
+.music-toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.music-player-v3:not(.minimized) .music-toggle-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    z-index: 10;
+}
+
+/* Marquee / Scrolling Song Title */
+.song-info-container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.song-title-scroll {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-text 12s linear infinite;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+@keyframes scroll-text {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Progress Bar */
+.progress-area {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #fff;
+    /* or yellow? */
+    width: 0%;
+    border-radius: 10px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Controls (Prev, Play, Next) */
+.controls-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.ctrl-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    padding: 0;
+}
+
+.ctrl-btn:hover {
+    transform: scale(1.1);
+    color: #ffe259;
+}
+
+.play-pause-btn {
+    font-size: 1.8rem;
+}
+
+/* Volume Controls */
+.volume-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.vol-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0;
+    opacity: 0.8;
+}
+
+.vol-slider {
+    flex-grow: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    outline: none;
+}
+
+.vol-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Positioning */
+@media (max-width: 600px) {
+    .music-player-v3 {
+        bottom: auto;
+        top: 20px;
+        right: 20px;
+    }
+}

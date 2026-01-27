@@ -4,85 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/styles/main.css">
     <title>Minigames Lite</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Fredoka+One&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Momo+Signature&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Fredoka+One&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="src/styles/background-music.css">
+    <style>
+        :root {
+            --font-family: 'Fredoka One', sans-serif;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            /* Match general theme */
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
-    <header>
-        <h1>Minigames <span class="lite-text">Lite</span></h1>
-        <p class="header-subtitle">fun games you might like 😜</p>
-    </header>
+    <iframe id="game-frame" src="src/pages/home.html" title="Minigames Content"></iframe>
 
-    <main class="container">
-        <div class="games-grid">
-            <a href="src/pages/tic-tac-toe.html" class="game-card">
-                <div class="game-icon">
-                    <img src="src/assets/icons/tic-tac-toe.png" alt="Tic Tac Toe">
-                </div>
-                <div class="game-title">Tic Tac Toe</div>
-            </a>
-            <a href="src/pages/snake.html" class="game-card">
-                <div class="game-icon">
-                    <img src="src/assets/icons/snake.png" alt="Snake">
-                </div>
-                <div class="game-title">Snake</div>
-            </a>
-            <a href="src/pages/tetris.html" class="game-card">
-                <div class="game-icon">
-                    <img src="src/assets/icons/tetris.png" alt="Tetris">
-                </div>
-                <div class="game-title">Tetris</div>
-            </a>
-            <a href="#" class="game-card">
-                <div class="game-icon">
-                    <img src="src/assets/icons/pong.png" alt="Pong">
-                </div>
-                <div class="game-title">Pong</div>
-            </a>
-            <a href="#" class="game-card">
-                <div class="game-icon">
-                    <img src="src/assets/icons/minesweeper.png" alt="Minesweeper">
-                </div>
-                <div class="game-title">Minesweeper</div>
-            </a>
-            <a href="#" class="game-card">
-                <div class="game-icon">
-                    <img src="src/assets/icons/memory.png" alt="Memory">
-                </div>
-                <div class="game-title">Memory</div>
-            </a>
-            <a href="src/pages/aim-trainer.html" class="game-card">
-                <div class="game-icon">
-                    <img src="src/assets/icons/aim-trainer.png" alt="Aim Trainer">
-                </div>
-                <div class="game-title">Aim Trainer</div>
-            </a>
-            <a href="src/pages/2048.html" class="game-card">
-                <div class="game-icon">
-                    <img src="src/assets/icons/2048.png" alt="2048">
-                </div>
-                <div class="game-title">2048</div>
-            </a>
-            <a href="src/pages/traffic-racer.html" class="game-card">
-                <div class="game-icon">
-                    <img src="src/assets/icons/racing.png" alt="Racing">
-                </div>
-                <div class="game-title">Traffic Racer</div>
-            </a>
-            <a href="src/pages/sudoku.html" class="game-card">
-                <div class="game-icon">
-                    <img src="src/assets/icons/sudoku.png" alt="Sudoku">
-                </div>
-                <div class="game-title">Sudoku</div>
-            </a>
-        </div>
-    </main>
-    <script src="src/scripts/background.js"></script>
+    <!-- Music Player Script -->
+    <script src="src/scripts/background-music.js"></script>
+
+    <script>
+        // Handle "Back" navigation from games
+        window.closeGame = function () {
+            const iframe = document.getElementById('game-frame');
+            iframe.src = 'src/pages/home.html';
+        };
+    </script>
 </body>
 
 </html>
