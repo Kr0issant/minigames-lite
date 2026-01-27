@@ -35,36 +35,34 @@
                         <span class="key">←</span> <span class="key">→</span> to switch lanes
                     </div>
                     <br>
-                    <button id="start-btn" class="reset-btn">Start</button>
+                    <button id="start-btn" class="game-btn">Start</button>
                 </div>
 
                 <div id="game-over-screen" class="glass-card hidden">
                     <h2>GAME OVER</h2>
                     <p id="death-reason">CRASHED</p>
                     <p id="final-score">0s</p>
-                    <button id="restart-btn" class="reset-btn">TRY AGAIN</button>
+                    <button id="restart-btn" class="game-btn">TRY AGAIN</button>
                 </div>
             </div>
         </div>
 
         <div class="scoreboard">
-            <h2>SESSION STATS</h2>
             <div class="stat-box">
-                <div class="stat-label">TIME ALIVE</div>
-                <div id="score-value" class="stat-value">0s</div>
+                <span class="stat-label">TIME ALIVE</span>
+                <span id="score-value" class="stat-value">0s</span>
             </div>
             <div class="stat-box">
-                <div class="stat-label">BEST TIME</div>
-                <div id="best-score-value" class="stat-value">0s</div>
+                <span class="stat-label">BEST TIME</span>
+                <span id="best-score-value" class="stat-value">0s</span>
             </div>
-            <div class="reset-div">
-                <button id="external-restart-btn" class="reset-btn">RESTART</button>
-            </div>
+            <button id="external-restart-btn" class="game-btn">RESTART</button>
         </div>
     </div>
 
     <script src="../scripts/background-music.js"></script>
     <script src="../scripts/traffic-racer.js"></script>
+    <script src="../scripts/background.js"></script>
 </body>
 
 </html>

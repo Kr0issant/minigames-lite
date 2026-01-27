@@ -28,22 +28,21 @@
 
         <div class="scoreboard">
             <div class="stats-bar">
-                <div class="stat-item">
-                    <span class="stat-label">Mistakes:</span>
-                    <span id="mistakes-count">0/3</span>
+                <div class="stat-box">
+                    <span class="stat-label">Mistakes</span>
+                    <span id="mistakes-count" class="stat-value">0/3</span>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-label">Time:</span>
-                    <span id="timer">00:00</span>
+                <div class="stat-box">
+                    <span class="stat-label">Time</span>
+                    <span id="timer" class="stat-value">00:00</span>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-label">Difficulty:</span>
-                    <span id="difficulty-label">Easy</span>
+                <div class="stat-box">
+                    <span class="stat-label">Difficulty</span>
+                    <span id="difficulty-label" class="stat-value">Easy</span>
                 </div>
-                <!-- Wins count is hidden in UI but kept for logic if needed, or we can show it -->
-                <div class="stat-item">
-                    <span class="stat-label">Wins:</span>
-                    <span id="wins-count">0</span>
+                <div class="stat-box">
+                    <span class="stat-label">Wins</span>
+                    <span id="wins-count" class="stat-value">0</span>
                 </div>
             </div>
 
@@ -61,7 +60,7 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button id="new-game-btn" class="btn primary">New Game</button>
+                    <button id="new-game-btn" class="game-btn">New Game</button>
                     <!-- Difficulty menu can be part of new game action or separate -->
                     <div class="difficulty-options hidden" id="difficulty-menu">
                         <button class="diff-btn" data-diff="easy">Easy</button>
@@ -84,6 +83,7 @@
 
     <script src="../scripts/background-music.js"></script>
     <script src="../scripts/sudoku.js"></script>
+    <script src="../scripts/background.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,9 @@
+h1 {
+    font-family: var(--heading-font);
+    font-weight: 400;
+    font-size: 3rem;
+}
+
 .game-content {
     display: flex;
     flex-direction: column;
@@ -12,7 +18,8 @@
 
 .game-area {
     width: 100%;
-    height: 500px;
+    height: 60vh;
+    min-height: 400px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     position: relative;
@@ -25,9 +32,10 @@
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 20px;
+    padding: 15px;
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
+    /* Increased max-width for tablet/mobile */
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 
@@ -35,29 +43,28 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: 10px;
     box-sizing: border-box;
 }
 
 #scoreboard-reset-btn {
-    margin-top: auto;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 10px;
+    width: 100%;
+    /* Full width button on mobile looks better usually, or keep auto */
+    max-width: 200px;
 }
 
 .stat-box {
     background: rgba(0, 0, 0, 0.3);
-    /* Grey background like reference */
     border-radius: 15px;
     padding: 10px;
-    /* Reduced padding */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 80px;
-    /* Reduced min-width */
-    flex: 1 1 40%;
+    min-width: 70px;
+    flex: 1 1 20%;
+    /* Allow 4 items in a row if space permits */
     color: white;
     font-family: var(--font-family);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -69,18 +76,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 80px;
-    flex: 1 1 100%;
-    /* Force full width */
+    min-width: 70px;
+    flex: 1 1 20%;
     color: white;
     font-family: var(--font-family);
-    margin-top: 0.5rem;
+    margin-top: 0;
+    /* Remove top margin for flex row layout */
     box-sizing: border-box;
 }
 
 .stat-label {
-    font-size: 0.9rem;
-    /* Slightly smaller label */
+    font-size: 0.8rem;
     opacity: 0.9;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -89,8 +95,7 @@
 }
 
 .stat-value {
-    font-size: 1.8rem;
-    /* Slightly smaller value */
+    font-size: 1.5rem;
     font-weight: 700;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -220,7 +225,8 @@
         justify-self: end;
         margin-top: 0;
         width: 280px;
-        /* Increased width slightly */
+        max-width: 280px;
+        /* Reset max-width for desktop sidebar */
         height: auto;
         display: flex;
         flex-direction: row;
@@ -228,6 +234,13 @@
         justify-content: space-between;
         align-content: flex-start;
         gap: 1rem;
+    }
+
+    #scoreboard-reset-btn {
+        margin-top: auto;
+        margin-left: auto;
+        margin-right: auto;
+        width: auto;
     }
 
     .stat-box {

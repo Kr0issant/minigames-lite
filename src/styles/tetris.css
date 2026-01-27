@@ -30,48 +30,50 @@ h1 {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 20px;
+    padding: 15px;
     margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    box-sizing: border-box;
     text-align: center;
 }
 
-.scores-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.score-box {
-    background: rgba(187, 160, 164, 0.8);
-    padding: 5px 15px;
-    border-radius: 10px;
+.stat-box {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 80px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    min-width: 70px;
+    flex: 1 1 30%;
+    color: white;
+    font-family: var(--font-family);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
-.score-label {
-    font-size: 14px;
-    color: #eee4da;
+.stat-label {
+    font-size: 0.8rem;
+    opacity: 0.9;
     text-transform: uppercase;
-    font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 5px;
+    font-family: var(--heading-font);
 }
 
-#score,
-#highScore {
-    font-size: 30px;
+.stat-value {
+    font-size: 1.5rem;
     font-weight: 700;
-    color: white;
-    font-family: var(--heading-font);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .controls-info {
@@ -81,32 +83,30 @@ h1 {
     font-weight: 500;
 }
 
-.reset-div {
-    display: flex;
-    justify-content: center;
-}
-
-.reset-btn {
+.game-btn {
     font-family: var(--font-family);
     font-size: 1.2rem;
     border-radius: 5px;
     transition: all 0.2s;
     background-color: #ff6b6b;
-    color: white;
+    color: rgb(255, 255, 255);
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 0 #d35454;
     transform: translateY(0);
+    margin-top: 10px;
+    width: 100%;
+    max-width: 200px;
 }
 
-.reset-btn:hover {
+.game-btn:hover {
     background-color: #ff5252;
     transform: translateY(-2px);
     box-shadow: 0 6px 0 #d35454;
 }
 
-.reset-btn:active {
+.game-btn:active {
     transform: translateY(2px);
     box-shadow: 0 2px 0 #d35454;
 }
@@ -172,8 +172,28 @@ h1 {
         width: 300px;
         height: auto;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: flex-start;
+        gap: 10px;
+    }
+
+    .stat-box {
+        flex: 1 1 45%;
+        width: auto;
+    }
+
+    .game-btn {
+        width: 100%;
+        margin-top: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .controls-info {
+        width: 100%;
+        margin-top: 0.5rem;
     }
 }
 
