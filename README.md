@@ -1,7 +1,40 @@
 # minigames-lite
 A collection of "fun" minigames
 
+
 [Live Preview](https://kr0issant.github.io/minigames-lite/)
+
+## Project Overview
+
+### Problem Statement
+**Entertainment, Games & Engagement Platforms**
+The goal is to build engaging experiences that keep users interacting through various game mechanics and real-time feedback.
+
+### Theme Focus
+Building engaging experiences that keep users interacting.
+
+### Features Implemented
+- **Game Mechanics**: Multiple interactive minigames (Sudoku, Chess, Racing, 2048, Aim Trainer, Tetris, Tic Tac Toe, Snake).
+- **Score Systems**: Tracking and displaying user scores.
+- **Real-time UI Updates**: Dynamic DOM manipulation to reflect game state changes immediately.
+- **Background Music Player**: A persistent, minimized music player that maintains state across different pages using local storage.
+
+### DOM Concepts Used
+- **Event-Driven Programming**: Handling user inputs (clicks, keyboard events) to drive game logic.
+- **Timers and Animations**: Using `setTimeout`, `setInterval`, and `requestAnimationFrame` for smooth gameplay.
+- **Complex UI State Handling**: Managing the state of various games and updating the DOM without page reloads.
+
+## Steps to Run
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Kr0issant/minigames-lite.git
+   ```
+2. Navigate to the project directory.
+3. Open `index.html` in any modern web browser.
+
+## Known Limitations
+- Scores are currently stored in local storage and do not persist across devices.
+- Some games may not be fully optimized for mobile devices.
 
 ## Credits
 
